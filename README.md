@@ -1,0 +1,1 @@
+GanzKurz project initialized

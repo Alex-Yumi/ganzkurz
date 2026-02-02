@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GanzKurz — Die Wahrheit braucht Zeit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Noise overlay for texture -->
+    <div class="noise"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <!-- Background layers for image carousel -->
+        <div class="hero-bg-container">
+            <div class="hero-bg hero-bg-current" data-index="0"></div>
+            <div class="hero-bg hero-bg-next" data-index="1"></div>
+            <div class="hero-bg-reveal"></div>
+        </div>
+        <div class="hero-content">
+            <div class="classified-stamp">COMING SOON</div>
+            <h1 class="title">
+                <span class="title-main">Ganz<span class="highlight">Kurz</span></span>
+            </h1>
+            <p class="tagline">Die Wahrheit braucht Zeit.</p>
+            <p class="subtitle">Ein Podcast über die Geschichten, die man uns nicht erzählt.</p>
+            
+            <div class="redacted-preview">
+                <span class="redacted" data-reveal="Epstein Files">███████████</span>
+                <span class="redacted" data-reveal="MK Ultra">████████</span>
+                <span class="redacted" data-reveal="9/11">████</span>
+                <span class="redacted" data-reveal="False Flags">███████████</span>
+            </div>
+            
+            <div class="cta-section">
+                <form class="notify-form" id="notifyForm">
+                    <input type="email" placeholder="Deine E-Mail für Updates" required>
+                    <button type="submit">
+                        <span>Benachrichtigen</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </form>
+                <p class="privacy-note">Kein Spam. Nur die Wahrheit.</p>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-label">Was ist GanzKurz?</div>
+            <h2 class="section-title">
+                Kurzer Name.<br>
+                <span class="highlight">Tiefe Recherche.</span>
+            </h2>
+            <p class="section-text">
+                Wir tauchen ein in die kontroversesten Themen unserer Zeit. 
+                Mit Quellen. Mit Experten. Ohne Angst vor unbequemen Fragen.
+            </p>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">📁</div>
+                    <h3>Quellenbasiert</h3>
+                    <p>Jede Behauptung wird belegt. Transparenz ist nicht verhandelbar.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎙️</div>
+                    <h3>Experten-Gäste</h3>
+                    <p>Investigativ-Journalisten, Historiker, Insider — die Menschen, die wissen.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Deep Dives</h3>
+                    <p>Keine Oberflächlichkeit. Wir gehen so tief wie nötig.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Topics Preview -->
+    <section class="topics" id="topics">
+        <div class="container">
+            <div class="section-label">Kommende Themen</div>
+            <div class="topics-grid">
+                <div class="topic-card" data-topic="epstein">
+                    <div class="topic-number">01</div>
+                    <h3>Die Epstein Files</h3>
+                    <p>Was die freigegebenen Dokumente wirklich enthüllen.</p>
+                    <div class="topic-status active">In Recherche</div>
+                </div>
+                <div class="topic-card" data-topic="mkultra">
+                    <div class="topic-number">02</div>
+                    <h3>MK Ultra</h3>
+                    <p>Mind Control: Vom CIA-Programm zur modernen Forschung.</p>
+                    <div class="topic-status soon">Bald verfügbar</div>
+                </div>
+                <div class="topic-card" data-topic="911">
+                    <div class="topic-number">03</div>
+                    <h3>9/11 Revisited</h3>
+                    <p>20+ Jahre später: Die Fragen, die bleiben.</p>
+                    <div class="topic-status soon">Bald verfügbar</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">
+                <span class="footer-logo">GanzKurz</span>
+                <p>Die Wahrheit braucht Zeit.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#" class="social-link">Twitter</a>
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">YouTube</a>
+            </div>
+            <p class="copyright">© 2026 GanzKurz. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
