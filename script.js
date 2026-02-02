@@ -25,10 +25,7 @@ function initHeroCarousel() {
     
     // Hero images array
     const heroImages = [
-        'hero_documents.png',
-        'topic_epstein.png',
-        'topic_mkultra.png',
-        'topic_911.png'
+        'studio_hero.png'
     ];
     
     let currentIndex = 0;
