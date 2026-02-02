@@ -221,22 +221,42 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.5rem;
     margin-bottom: 3rem;
 }
 
 .redacted {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    background: var(--gray-dark);
-    border-radius: 4px;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, var(--gray-dark) 0%, #1a1a1a 100%);
+    border-radius: 6px;
     font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
     color: var(--gray-light);
     cursor: pointer;
-    transition: all 0.3s var(--transition);
+    transition: all 0.4s var(--transition);
     position: relative;
     overflow: hidden;
+    border: 1px solid var(--gray);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* Scan line effect */
+.redacted::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 165, 41, 0.15), transparent);
+    animation: scanline 3s ease-in-out infinite;
+}
+
+@keyframes scanline {
+    0%, 100% { left: -100%; }
+    50% { left: 100%; }
 }
 
 .redacted::before {
@@ -244,23 +264,34 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0.8);
     opacity: 0;
     color: var(--red);
     font-family: var(--font-body);
-    font-weight: 600;
+    font-size: 1.2rem;
+    font-weight: 700;
     white-space: nowrap;
-    transition: opacity 0.3s var(--transition);
-    text-shadow: 0 0 20px var(--red-dim);
+    transition: all 0.4s var(--transition);
+    text-shadow: 0 0 30px var(--red), 0 0 60px rgba(220, 38, 38, 0.5);
+    z-index: 2;
 }
 
 .redacted:hover {
-    background: var(--gray);
+    background: linear-gradient(135deg, var(--gray) 0%, var(--gray-dark) 100%);
     color: transparent;
+    transform: scale(1.05);
+    border-color: var(--red);
+    box-shadow: 0 0 25px rgba(220, 38, 38, 0.4), 0 5px 20px rgba(0,0,0,0.4);
 }
 
 .redacted:hover::before {
     opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.redacted:hover::after {
+    animation: none;
+    opacity: 0;
 }
 
 /* === CTA Form === */
