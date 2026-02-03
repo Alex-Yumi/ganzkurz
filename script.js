@@ -37,21 +37,13 @@ function handleScroll() {
         content.classList.remove('visible');
     }
     
-    // === PHASE 3: Stripes OUT (55% - 75%) ===
-    else if (progress < 0.75) {
-        logo.style.opacity = 0;
-        logo.style.visibility = 'hidden';
-        
-        stripes.className = 'stripes-container stripes-out';
-        content.classList.remove('visible');
-    }
-    
-    // === PHASE 4: Content (75%+) ===
+    // === PHASE 3: Content appears over black (55%+) ===
     else {
         logo.style.opacity = 0;
         logo.style.visibility = 'hidden';
         
-        stripes.className = 'stripes-container stripes-out';
+        // Keep stripes IN (black background stays)
+        stripes.className = 'stripes-container stripes-in';
         content.classList.add('visible');
     }
     

@@ -145,8 +145,8 @@ body {
     justify-content: center;
     padding: 4rem 2rem;
     position: relative;
-    z-index: 10;
-    background: var(--navy);
+    z-index: 95;
+    background: transparent;
 }
 
 .content-inner {
