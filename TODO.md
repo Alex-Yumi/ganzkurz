@@ -29,7 +29,7 @@ Draufsicht auf einen investigativen Schreibtisch. Dokumente, Fotos, Notizen vers
 - [x] **prop_pen.png** - Kugelschreiber diagonal
 - [x] **prop_glasses.png** - Lesebrille
 - [x] **prop_postit.png** - Post-it mit "?" darauf
-- [ ] **prop_paperclip.png** - Büroklammer
+- [x] **prop_paperclip.png** - Büroklammer
 
 ### Optional / Nice-to-have
 - [ ] **prop_cigarette.png** - Aschenbecher mit Zigarette (noir Vibes)
