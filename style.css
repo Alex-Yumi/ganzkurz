@@ -20,6 +20,7 @@ body {
     background: var(--navy);
     font-family: 'Inter', -apple-system, sans-serif;
     color: var(--white);
+    min-height: 250vh;
 }
 
 /* ============================================
@@ -138,15 +139,17 @@ body {
    ============================================ */
 
 .content {
-    min-height: 100vh;
-    min-height: 100dvh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4rem 2rem;
-    position: relative;
+    padding: 2rem;
     z-index: 95;
-    background: transparent;
+    pointer-events: none;
 }
 
 .content-inner {
@@ -154,7 +157,8 @@ body {
     text-align: center;
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    pointer-events: auto;
 }
 
 .content-inner.visible {
