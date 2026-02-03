@@ -1,278 +1,28 @@
-/* ============================================
-   GanzKurz — CSS-Only Design
-   ============================================ */
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    --font-display: 'Playfair Display', Georgia, serif;
-    --font-body: 'Inter', -apple-system, sans-serif;
-    --color-text: #f5f5f5;
-    --wood-dark: #1a120b;
-    --wood-mid: #2d1f14;
-    --wood-light: #4a3222;
-    --metal-dark: #1a1a1a;
-    --metal-mid: #2d2d2d;
-    --metal-light: #4a4a4a;
-}
-
-html, body {
-    height: 100%;
-    overflow: hidden;
-}
-
 body {
-    background: #000;
-    color: var(--color-text);
-    font-family: var(--font-body);
-}
-
-/* ============================================
-   Background Slideshow
-   ============================================ */
-
-.slideshow {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-}
-
-.slide {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-}
-
-.slide.active {
-    opacity: 1;
-}
-
-.slide::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.3) 0%,
-        rgba(0,0,0,0.1) 40%,
-        rgba(0,0,0,0.2) 70%,
-        rgba(0,0,0,0.7) 100%
-    );
-}
-
-/* ============================================
-   CSS Microphone
-   ============================================ */
-
-.mic-container {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
+    min-height: 100vh;
+    background: #0a0a0a;
     display: flex;
-    flex-direction: column;
     align-items: center;
-}
-
-.mic-cable {
-    width: 4px;
-    height: 12vh;
-    background: linear-gradient(
-        to right,
-        var(--metal-dark) 0%,
-        var(--metal-light) 50%,
-        var(--metal-dark) 100%
-    );
-    border-radius: 2px;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-}
-
-.mic-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.7));
-}
-
-.mic-head {
-    width: 50px;
-    height: 20px;
-    background: linear-gradient(
-        to bottom,
-        var(--metal-light) 0%,
-        var(--metal-mid) 50%,
-        var(--metal-dark) 100%
-    );
-    border-radius: 5px 5px 0 0;
-}
-
-.mic-grille {
-    width: 60px;
-    height: 80px;
-    background: 
-        repeating-linear-gradient(
-            0deg,
-            var(--metal-dark) 0px,
-            var(--metal-dark) 2px,
-            var(--metal-mid) 2px,
-            var(--metal-mid) 4px
-        );
-    border-radius: 30px;
-    border: 3px solid var(--metal-mid);
-    box-shadow: 
-        inset 0 5px 15px rgba(255,255,255,0.1),
-        inset 0 -5px 15px rgba(0,0,0,0.3);
-}
-
-.mic-connector {
-    width: 30px;
-    height: 25px;
-    background: linear-gradient(
-        to bottom,
-        var(--metal-mid) 0%,
-        var(--metal-dark) 100%
-    );
-    border-radius: 0 0 8px 8px;
-}
-
-/* ============================================
-   Logo
-   ============================================ */
-
-.logo-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 50;
+    justify-content: center;
 }
 
 .logo {
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 12vw, 8rem);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(4rem, 15vw, 12rem);
     font-weight: 900;
-    color: var(--color-text);
-    text-shadow: 0 4px 40px rgba(0, 0, 0, 0.8);
-    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
 }
 
-.tagline {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.9);
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+.ganz {
+    color: #ffffff;
 }
 
-/* ============================================
-   CSS 3D Table
-   ============================================ */
-
-.table-perspective {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 30vh;
-    z-index: 80;
-    perspective: 500px;
-    pointer-events: none;
-}
-
-.table-surface {
-    position: absolute;
-    bottom: 0;
-    left: -10%;
-    right: -10%;
-    height: 100%;
-    background: 
-        linear-gradient(
-            90deg,
-            var(--wood-dark) 0%,
-            var(--wood-mid) 15%,
-            var(--wood-light) 30%,
-            var(--wood-mid) 50%,
-            var(--wood-light) 70%,
-            var(--wood-mid) 85%,
-            var(--wood-dark) 100%
-        );
-    transform: rotateX(60deg);
-    transform-origin: bottom center;
-    box-shadow: 
-        0 -5px 30px rgba(0,0,0,0.5),
-        inset 0 2px 10px rgba(255,255,255,0.05);
-}
-
-/* Wood grain texture */
-.table-surface::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-        90deg,
-        transparent 0px,
-        transparent 40px,
-        rgba(0,0,0,0.1) 40px,
-        rgba(0,0,0,0.1) 42px,
-        transparent 42px,
-        transparent 80px
-    );
-}
-
-.table-reflection {
-    position: absolute;
-    top: 0;
-    left: 20%;
-    right: 20%;
-    height: 40%;
-    background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.08) 0%,
-        transparent 100%
-    );
-    border-radius: 50%;
-    filter: blur(20px);
-}
-
-.table-edge {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 15px;
-    background: linear-gradient(
-        to bottom,
-        var(--wood-mid) 0%,
-        var(--wood-dark) 100%
-    );
-    box-shadow: 0 5px 20px rgba(0,0,0,0.8);
-}
-
-/* ============================================
-   Responsive
-   ============================================ */
-
-@media (max-width: 768px) {
-    .mic-grille {
-        width: 45px;
-        height: 60px;
-    }
-    
-    .mic-cable {
-        height: 8vh;
-    }
-    
-    .table-perspective {
-        height: 25vh;
-    }
+.kurz {
+    color: #c9a227;
 }
