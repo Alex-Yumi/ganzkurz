@@ -1,520 +1,396 @@
 /* ============================================
-   GanzKurz — Professional Podcast Landing Page
+   GanzKurz — Scroll-Driven Animation
    ============================================ */
 
-/* ---------- CSS Custom Properties ---------- */
-:root {
-    /* Colors */
-    --color-black: #000000;
-    --color-white: #ffffff;
-    --color-gold: #c9a227;
-    --color-gold-light: #e8c547;
-    --color-navy: #0d1b2a;
-    --color-navy-light: #1b263b;
-    --color-gray: #8892a0;
-    --color-gray-dark: #4a5568;
-    
-    /* Typography */
-    --font-display: 'Playfair Display', Georgia, serif;
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    
-    /* Spacing */
-    --space-xs: 0.5rem;
-    --space-sm: 1rem;
-    --space-md: 2rem;
-    --space-lg: 4rem;
-    --space-xl: 8rem;
-    
-    /* Transitions */
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-    --duration-fast: 0.3s;
-    --duration-medium: 0.6s;
-    --duration-slow: 1s;
-}
-
-/* ---------- Reset & Base ---------- */
-*, *::before, *::after {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+:root {
+    --navy: #0d1b2a;
+    --navy-dark: #060d14;
+    --black: #000000;
+    --gold: #c9a227;
+    --gold-dark: #a68620;
+    --white: #ffffff;
+    --gray: rgba(255, 255, 255, 0.7);
+    --gray-dark: rgba(255, 255, 255, 0.4);
+}
+
 html {
     scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
-    overflow-x: hidden;
 }
 
 body {
-    font-family: var(--font-body);
-    background: var(--color-black);
-    color: var(--color-white);
-    line-height: 1.6;
+    background: var(--navy);
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--white);
     overflow-x: hidden;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* ---------- Section Base ---------- */
-.section {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    scroll-snap-align: start;
-    overflow: hidden;
-}
-
 /* ============================================
-   SECTION 1: HERO
+   LOGO LAYER (fixed, zooms out)
    ============================================ */
-.section--hero {
-    background: var(--color-navy);
-}
 
-.hero__background {
-    position: absolute;
-    inset: 0;
-    background: 
-        radial-gradient(ellipse at 20% 50%, rgba(201, 162, 39, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 50%, rgba(201, 162, 39, 0.05) 0%, transparent 50%),
-        var(--color-navy);
-}
-
-.hero__content {
-    position: relative;
-    z-index: 2;
+.logo-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    z-index: 100;
     text-align: center;
-    padding: var(--space-md);
+    pointer-events: none;
+    will-change: transform, opacity;
 }
 
 .logo {
-    font-family: var(--font-display);
-    font-size: clamp(4rem, 15vw, 12rem);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(3rem, 12vw, 10rem);
     font-weight: 900;
-    letter-spacing: -0.03em;
-    line-height: 0.9;
-    margin-bottom: var(--space-sm);
+    letter-spacing: -0.02em;
+    line-height: 1;
 }
 
-.logo__ganz {
-    color: var(--color-white);
-}
+.ganz { color: var(--white); }
+.kurz { color: var(--gold); }
 
-.logo__kurz {
-    color: var(--color-gold);
-}
-
-.hero__tagline {
-    font-size: clamp(0.875rem, 2.5vw, 1.25rem);
-    font-weight: 300;
-    color: var(--color-gray);
-    letter-spacing: 0.25em;
+.tagline {
+    margin-top: 1.5rem;
+    font-size: clamp(0.75rem, 2.5vw, 1.25rem);
+    font-weight: 400;
+    color: var(--gray);
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-}
-
-/* Scroll Indicator */
-.scroll-indicator {
-    position: absolute;
-    bottom: var(--space-lg);
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-sm);
-    opacity: 0.6;
-    animation: pulse 2s ease-in-out infinite;
-}
-
-.scroll-indicator__text {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-}
-
-.scroll-indicator__line {
-    width: 1px;
-    height: 60px;
-    background: linear-gradient(to bottom, var(--color-white), transparent);
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
-    50% { opacity: 1; transform: translateX(-50%) translateY(10px); }
 }
 
 /* ============================================
-   TRANSITION 1: Netflix Stripes
+   STRIPES LAYER (Netflix transition)
    ============================================ */
-.transition--stripes {
-    position: relative;
-    height: 100vh;
+
+.stripes-container {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
     display: flex;
-    scroll-snap-align: start;
-    overflow: hidden;
-    background: var(--color-black);
+    flex-direction: column;
+    pointer-events: none;
 }
 
 .stripe {
     flex: 1;
-    background: var(--color-black);
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.8s var(--ease-out-expo);
+    background: var(--black);
+    transform: scaleX(0);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.stripe--1 { transition-delay: 0s; background: #111; }
-.stripe--2 { transition-delay: 0.1s; background: #0a0a0a; }
-.stripe--3 { transition-delay: 0.2s; background: #111; }
-.stripe--4 { transition-delay: 0.3s; background: #0a0a0a; }
-.stripe--5 { transition-delay: 0.4s; background: #111; }
-.stripe--6 { transition-delay: 0.5s; background: #0a0a0a; }
+.stripe:nth-child(odd) { transform-origin: left center; }
+.stripe:nth-child(even) { transform-origin: right center; }
 
-.transition--stripes.is-active .stripe {
-    transform: scaleY(1);
+.stripe-1 { transition-delay: 0.00s; }
+.stripe-2 { transition-delay: 0.08s; }
+.stripe-3 { transition-delay: 0.16s; }
+.stripe-4 { transition-delay: 0.24s; }
+.stripe-5 { transition-delay: 0.32s; }
+.stripe-6 { transition-delay: 0.40s; }
+
+.stripes-container.stripes-in .stripe {
+    transform: scaleX(1);
 }
 
 /* ============================================
-   SECTION 2: INTRO
+   INTRO TEXT LAYER (fades in over black)
    ============================================ */
-.section--intro {
-    background: var(--color-black);
-    padding: var(--space-xl) var(--space-md);
+
+.intro-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 95;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
 }
 
-.intro__content {
-    max-width: 900px;
+.intro-layer.visible {
+    opacity: 1;
+}
+
+.intro-content {
+    max-width: 750px;
     text-align: center;
 }
 
-.intro__headline {
-    font-family: var(--font-display);
-    font-size: clamp(1.75rem, 5vw, 3.5rem);
+.intro-content h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.5rem, 5vw, 2.75rem);
     font-weight: 400;
-    line-height: 1.3;
-    margin-bottom: var(--space-lg);
-    color: var(--color-white);
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
 }
 
-.intro__highlight {
-    color: var(--color-gold);
+.intro-content h2 em {
+    color: var(--gold);
     font-style: italic;
 }
 
-.intro__text {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    color: var(--color-gray);
+.intro-content p {
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
     line-height: 1.8;
-    margin-bottom: var(--space-lg);
+    color: var(--gray);
+    margin-bottom: 2rem;
 }
 
-.intro__topics {
+.topics {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: var(--space-sm);
-}
-
-.topic-tag {
-    padding: var(--space-xs) var(--space-sm);
-    border: 1px solid var(--color-gray-dark);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-gray);
-    transition: all var(--duration-fast) ease;
-}
-
-.topic-tag:hover {
-    border-color: var(--color-gold);
-    color: var(--color-gold);
-}
-
-/* ============================================
-   TRANSITION 2: Reveal Curtain
-   ============================================ */
-.transition--reveal {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    scroll-snap-align: start;
-    overflow: hidden;
-}
-
-.reveal__curtain {
-    flex: 1;
-    background: var(--color-gold);
-    transition: transform 1s var(--ease-out-expo);
-}
-
-.reveal__curtain--left {
-    transform-origin: left;
-}
-
-.reveal__curtain--right {
-    transform-origin: right;
-}
-
-.transition--reveal.is-active .reveal__curtain--left {
-    transform: scaleX(0);
-}
-
-.transition--reveal.is-active .reveal__curtain--right {
-    transform: scaleX(0);
-}
-
-/* ============================================
-   SECTION 3: HOSTS - Portrait Gallery
-   ============================================ */
-.section--hosts {
-    background: var(--color-navy);
-    padding: var(--space-xl) var(--space-md);
-}
-
-.hosts__grid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--space-lg);
-    margin-bottom: var(--space-lg);
-    flex-wrap: wrap;
-}
-
-.host-card {
-    position: relative;
-    width: clamp(250px, 30vw, 350px);
-    overflow: hidden;
-}
-
-.host-card__image-wrapper {
-    position: relative;
-    aspect-ratio: 3/4;
-    overflow: hidden;
-    border: 2px solid var(--color-gray-dark);
-    transition: border-color var(--duration-fast) ease;
-}
-
-.host-card:hover .host-card__image-wrapper {
-    border-color: var(--color-gold);
-}
-
-.host-card__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform var(--duration-medium) var(--ease-out-quart);
-}
-
-.host-card:hover .host-card__image {
-    transform: scale(1.05);
-}
-
-.host-card__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.8) 0%,
-        transparent 50%
-    );
-}
-
-.host-card__info {
-    padding: var(--space-md) 0;
-    text-align: center;
-}
-
-.host-card__name {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-white);
-    margin-bottom: var(--space-xs);
-}
-
-.host-card__role {
+    gap: 0.75rem;
     font-size: 0.875rem;
-    color: var(--color-gold);
-    letter-spacing: 0.15em;
+    color: var(--gray-dark);
     text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
-.hosts__ampersand {
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 8vw, 6rem);
-    color: var(--color-gold);
+.topics span:not(:nth-child(odd)) {
+    color: var(--gold);
+}
+
+/* ============================================
+   GOLD CURTAIN LAYER (reveals portraits)
+   ============================================ */
+
+.curtain-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 85;
+    display: flex;
+    pointer-events: none;
+}
+
+.curtain {
+    flex: 1;
+    background: var(--gold);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curtain-left {
+    transform-origin: left center;
+}
+
+.curtain-right {
+    transform-origin: right center;
+}
+
+.curtain-layer.open .curtain {
+    transform: scaleX(0);
+}
+
+/* ============================================
+   PORTRAITS LAYER (revealed by curtain)
+   ============================================ */
+
+.portraits-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1rem, 5vw, 4rem);
+    padding: 2rem;
+    background: var(--navy-dark);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.portraits-layer.visible {
+    opacity: 1;
+}
+
+.portrait {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.portraits-layer.visible .portrait {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.portrait-left { transition-delay: 0.2s; }
+.portrait-right { transition-delay: 0.4s; }
+
+.portrait img {
+    width: clamp(150px, 25vw, 280px);
+    height: auto;
+    border: 3px solid var(--gold);
+    border-radius: 4px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.portrait-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.25rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.portraits-ampersand {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 6vw, 5rem);
+    color: var(--gold);
+    opacity: 0.5;
+    transform: translateY(30px);
+    transition: transform 0.8s ease 0.3s, opacity 0.8s ease 0.3s;
+}
+
+.portraits-layer.visible .portraits-ampersand {
+    transform: translateY(0);
     opacity: 0.5;
 }
 
-.hosts__tagline {
-    font-family: var(--font-display);
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    font-style: italic;
-    color: var(--color-gray);
-    text-align: center;
+/* ============================================
+   SCROLL SPACER (creates scroll distance)
+   ============================================ */
+
+.scroll-spacer {
+    height: 500vh; /* 5 viewport heights for all fixed animations */
 }
 
 /* ============================================
-   SECTION 4: BIOS
+   SCROLLABLE SECTIONS (after fixed layers)
    ============================================ */
-.section--bios {
-    background: var(--color-black);
-    padding: var(--space-xl) var(--space-md);
+
+.section {
+    position: relative;
+    z-index: 200;
+    padding: clamp(4rem, 10vh, 8rem) clamp(1.5rem, 5vw, 4rem);
 }
 
-.bios__container {
-    max-width: 1200px;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xl);
+/* --- BIOS SECTION --- */
+
+.section-bios {
+    background: var(--black);
 }
 
 .bio {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: var(--space-lg);
+    display: flex;
     align-items: center;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all var(--duration-slow) var(--ease-out-expo);
+    gap: clamp(2rem, 5vw, 4rem);
+    max-width: 1000px;
+    margin: 0 auto 6rem;
 }
 
-.bio.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+.bio:last-child {
+    margin-bottom: 0;
 }
 
-.bio--reversed {
-    grid-template-columns: 1fr 200px;
+.bio-portrait {
+    flex-shrink: 0;
 }
 
-.bio--reversed .bio__portrait {
-    order: 2;
-}
-
-.bio--reversed .bio__content {
-    text-align: right;
-}
-
-.bio--reversed .bio__traits {
-    justify-content: flex-end;
-}
-
-.bio__portrait {
-    position: relative;
-}
-
-.bio__portrait img {
-    width: 100%;
-    aspect-ratio: 1;
+.bio-portrait img {
+    width: clamp(120px, 20vw, 200px);
+    height: clamp(120px, 20vw, 200px);
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid var(--color-gold);
-    filter: grayscale(30%);
-    transition: filter var(--duration-fast) ease;
+    border: 3px solid var(--gold);
 }
 
-.bio:hover .bio__portrait img {
-    filter: grayscale(0%);
+.bio-content h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    color: var(--gold);
+    margin-bottom: 1rem;
 }
 
-.bio__name {
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-    color: var(--color-gold);
-    margin-bottom: var(--space-sm);
-}
-
-.bio__text {
-    font-size: 1.125rem;
-    color: var(--color-gray);
+.bio-content p {
+    font-size: clamp(1rem, 2vw, 1.125rem);
     line-height: 1.8;
-    margin-bottom: var(--space-md);
+    color: var(--gray);
+    margin-bottom: 1.5rem;
 }
 
-.bio__traits {
+.bio-traits {
     display: flex;
-    gap: var(--space-sm);
     flex-wrap: wrap;
+    gap: 0.75rem;
 }
 
-.trait {
-    padding: var(--space-xs) var(--space-sm);
-    background: var(--color-navy);
+.bio-traits span {
+    padding: 0.5rem 1rem;
+    background: var(--navy);
     font-size: 0.75rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-white);
 }
 
-/* ============================================
-   SECTION 5: CTA
-   ============================================ */
-.section--cta {
-    background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-black) 100%);
-    padding: var(--space-xl) var(--space-md);
+/* Fabian bio - reversed layout */
+.bio-fabian {
+    flex-direction: row-reverse;
+    text-align: right;
 }
 
-.cta__content {
+.bio-fabian .bio-traits {
+    justify-content: flex-end;
+}
+
+/* --- CTA SECTION --- */
+
+.section-cta {
+    background: linear-gradient(to bottom, var(--black), var(--navy-dark));
     text-align: center;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
 }
 
-.cta__text {
+.cta-subtitle {
     font-size: 0.875rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--color-gray);
-    margin-bottom: var(--space-sm);
+    color: var(--gray-dark);
+    margin-bottom: 1rem;
 }
 
-.cta__headline {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 6vw, 4rem);
+.cta-headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.75rem, 5vw, 3.5rem);
     font-weight: 400;
-    color: var(--color-white);
-    margin-bottom: var(--space-lg);
+    margin-bottom: 3rem;
 }
 
-.cta__button {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-md) var(--space-lg);
-    border: 2px solid var(--color-gold);
-    color: var(--color-gold);
+.cta-button {
+    display: inline-block;
+    padding: 1.25rem 3rem;
+    border: 2px solid var(--gold);
+    color: var(--gold);
     text-decoration: none;
     font-size: 0.875rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    transition: all var(--duration-fast) ease;
+    transition: all 0.3s ease;
 }
 
-.cta__button:hover {
-    background: var(--color-gold);
-    color: var(--color-black);
-}
-
-.cta__arrow {
-    width: 20px;
-    height: 20px;
-    transition: transform var(--duration-fast) ease;
-}
-
-.cta__button:hover .cta__arrow {
-    transform: translateX(5px);
+.cta-button:hover {
+    background: var(--gold);
+    color: var(--black);
 }
 
 /* ============================================
-   Progress Bar
+   PROGRESS BAR
    ============================================ */
+
 .progress-bar {
     position: fixed;
     top: 0;
@@ -522,78 +398,70 @@ img {
     width: 100%;
     height: 3px;
     background: rgba(255, 255, 255, 0.1);
-    z-index: 100;
+    z-index: 1000;
 }
 
-.progress-bar__fill {
+.progress-fill {
     height: 100%;
     width: 0%;
-    background: var(--color-gold);
-    transition: width 0.1s linear;
+    background: var(--gold);
+    transition: width 0.05s linear;
 }
 
 /* ============================================
-   Responsive Design
+   SCROLL HINT
    ============================================ */
+
+.scroll-hint {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    color: var(--gray);
+    z-index: 150;
+    animation: bounce 2s infinite;
+    transition: opacity 0.3s ease;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
 @media (max-width: 768px) {
-    html {
-        scroll-snap-type: none;
-    }
-    
-    .hosts__grid {
+    .portraits-layer {
         flex-direction: column;
+        gap: 2rem;
     }
     
-    .hosts__ampersand {
-        transform: rotate(90deg);
+    .portraits-ampersand {
+        transform: rotate(90deg) translateX(0);
     }
     
-    .host-card {
-        width: 80%;
-        max-width: 300px;
+    .portraits-layer.visible .portraits-ampersand {
+        transform: rotate(90deg) translateX(0);
     }
     
     .bio {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         text-align: center;
     }
     
-    .bio--reversed {
-        grid-template-columns: 1fr;
-    }
-    
-    .bio--reversed .bio__portrait {
-        order: 0;
-    }
-    
-    .bio--reversed .bio__content {
+    .bio-fabian {
+        flex-direction: column;
         text-align: center;
     }
     
-    .bio--reversed .bio__traits {
+    .bio-fabian .bio-traits {
         justify-content: center;
     }
     
-    .bio__portrait {
-        max-width: 150px;
-        margin: 0 auto;
-    }
-    
-    .bio__traits {
+    .bio-traits {
         justify-content: center;
     }
-}
-
-/* ============================================
-   Utility Classes
-   ============================================ */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
 }

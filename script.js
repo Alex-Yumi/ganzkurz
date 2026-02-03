@@ -1,192 +1,167 @@
-/**
- * GanzKurz — Interactive Podcast Landing Page
- * Professional scroll-triggered animations
- */
+/* ============================================
+   GanzKurz — Scroll-Driven Animation Controller
+   ============================================ */
 
 (function() {
     'use strict';
-
-    // ============================================
-    // Configuration
-    // ============================================
-    const CONFIG = {
-        observerThreshold: 0.5,
-        observerRootMargin: '0px',
-        progressUpdateInterval: 10,
+    
+    // Elements
+    const logo = document.getElementById('logo');
+    const stripes = document.getElementById('stripes');
+    const intro = document.getElementById('intro');
+    const curtain = document.getElementById('curtain');
+    const portraits = document.getElementById('portraits');
+    const progressFill = document.querySelector('.progress-fill');
+    const scrollHint = document.getElementById('scroll-hint');
+    
+    // Total scroll distance for fixed animations (matches CSS scroll-spacer)
+    const FIXED_SCROLL_HEIGHT = 5; // viewport heights
+    
+    // Animation phases (as percentages of fixed scroll distance)
+    const PHASES = {
+        // Logo zoom: 0% - 20%
+        logoStart: 0,
+        logoEnd: 0.20,
+        
+        // Stripes in: 20% - 40%
+        stripesStart: 0.20,
+        stripesEnd: 0.40,
+        
+        // Intro text: 40% - 55%
+        introStart: 0.40,
+        introEnd: 0.55,
+        
+        // Curtain open: 55% - 70%
+        curtainStart: 0.55,
+        curtainEnd: 0.70,
+        
+        // Portraits: 70% - 100%
+        portraitsStart: 0.70,
+        portraitsEnd: 1.0
     };
-
-    // ============================================
-    // DOM Elements
-    // ============================================
-    const elements = {
-        progressFill: document.querySelector('.progress-bar__fill'),
-        transition1: document.getElementById('transition-1'),
-        transition2: document.getElementById('transition-2'),
-        bios: document.querySelectorAll('.bio'),
-        hostCards: document.querySelectorAll('.host-card'),
-    };
-
-    // ============================================
-    // Progress Bar
-    // ============================================
-    function updateProgressBar() {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = (scrollTop / docHeight) * 100;
+    
+    function lerp(start, end, t) {
+        return start + (end - start) * Math.max(0, Math.min(1, t));
+    }
+    
+    function handleScroll() {
+        const scrollY = window.scrollY;
+        const vh = window.innerHeight;
+        const fixedDistance = vh * FIXED_SCROLL_HEIGHT;
+        const totalHeight = document.documentElement.scrollHeight - vh;
         
-        if (elements.progressFill) {
-            elements.progressFill.style.width = `${Math.min(progress, 100)}%`;
+        // Progress through fixed animations (0 to 1)
+        const fixedProgress = Math.min(scrollY / fixedDistance, 1);
+        
+        // Total page progress for progress bar
+        const totalProgress = scrollY / totalHeight;
+        
+        // Update progress bar
+        if (progressFill) {
+            progressFill.style.width = `${totalProgress * 100}%`;
         }
-    }
-
-    // ============================================
-    // Intersection Observer for Animations
-    // ============================================
-    function createObserver(callback, options = {}) {
-        const defaultOptions = {
-            threshold: CONFIG.observerThreshold,
-            rootMargin: CONFIG.observerRootMargin,
-        };
         
-        return new IntersectionObserver(callback, { ...defaultOptions, ...options });
-    }
-
-    // Transition 1: Netflix Stripes
-    function initTransition1() {
-        if (!elements.transition1) return;
-        
-        const observer = createObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-active');
-                }
-            });
-        }, { threshold: 0.3 });
-        
-        observer.observe(elements.transition1);
-    }
-
-    // Transition 2: Reveal Curtain
-    function initTransition2() {
-        if (!elements.transition2) return;
-        
-        const observer = createObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-active');
-                }
-            });
-        }, { threshold: 0.3 });
-        
-        observer.observe(elements.transition2);
-    }
-
-    // Bio Cards Animation
-    function initBioAnimations() {
-        if (!elements.bios.length) return;
-        
-        const observer = createObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
-            });
-        }, { threshold: 0.2 });
-        
-        elements.bios.forEach(bio => observer.observe(bio));
-    }
-
-    // Host Cards Stagger Animation
-    function initHostCardAnimations() {
-        if (!elements.hostCards.length) return;
-        
-        elements.hostCards.forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = `opacity 0.8s ease ${index * 0.2}s, transform 0.8s ease ${index * 0.2}s`;
-        });
-        
-        const observer = createObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const cards = entry.target.querySelectorAll('.host-card');
-                    cards.forEach(card => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    });
-                }
-            });
-        }, { threshold: 0.2 });
-        
-        const hostsSection = document.getElementById('hosts');
-        if (hostsSection) {
-            observer.observe(hostsSection);
+        // Update scroll hint
+        if (scrollHint) {
+            scrollHint.style.opacity = fixedProgress < 0.1 ? 1 - (fixedProgress / 0.1) : 0;
         }
-    }
-
-    // ============================================
-    // Smooth Scroll Enhancement
-    // ============================================
-    function initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    }
-
-    // ============================================
-    // Parallax Effect (subtle)
-    // ============================================
-    function initParallax() {
-        const hero = document.querySelector('.hero__content');
-        if (!hero) return;
         
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            const rate = scrolled * 0.3;
+        // === PHASE 1: Logo Zoom ===
+        if (fixedProgress <= PHASES.logoEnd) {
+            const p = fixedProgress / PHASES.logoEnd;
+            const scale = 1 + (p * 3); // Zoom from 1x to 4x
+            const opacity = 1 - p;
             
-            if (scrolled < window.innerHeight) {
-                hero.style.transform = `translateY(${rate}px)`;
-                hero.style.opacity = 1 - (scrolled / window.innerHeight);
-            }
-        }, { passive: true });
-    }
-
-    // ============================================
-    // Initialization
-    // ============================================
-    function init() {
-        // Progress bar
-        window.addEventListener('scroll', updateProgressBar, { passive: true });
-        updateProgressBar();
+            logo.style.transform = `translate(-50%, -50%) scale(${scale})`;
+            logo.style.opacity = opacity;
+            logo.style.visibility = opacity > 0 ? 'visible' : 'hidden';
+            
+            // Reset everything else
+            stripes.classList.remove('stripes-in');
+            intro.classList.remove('visible');
+            curtain.classList.remove('open');
+            portraits.classList.remove('visible');
+        }
         
-        // Animations
-        initTransition1();
-        initTransition2();
-        initBioAnimations();
-        initHostCardAnimations();
+        // === PHASE 2: Stripes In ===
+        else if (fixedProgress <= PHASES.stripesEnd) {
+            logo.style.opacity = 0;
+            logo.style.visibility = 'hidden';
+            
+            stripes.classList.add('stripes-in');
+            intro.classList.remove('visible');
+            curtain.classList.remove('open');
+            portraits.classList.remove('visible');
+        }
         
-        // Enhancements
-        initSmoothScroll();
-        initParallax();
+        // === PHASE 3: Intro Text ===
+        else if (fixedProgress <= PHASES.introEnd) {
+            logo.style.opacity = 0;
+            logo.style.visibility = 'hidden';
+            
+            stripes.classList.add('stripes-in');
+            intro.classList.add('visible');
+            curtain.classList.remove('open');
+            portraits.classList.remove('visible');
+        }
         
-        // Log ready state
-        console.log('🎙️ GanzKurz initialized');
+        // === PHASE 4: Curtain Opens ===
+        else if (fixedProgress <= PHASES.curtainEnd) {
+            logo.style.opacity = 0;
+            logo.style.visibility = 'hidden';
+            
+            stripes.classList.add('stripes-in');
+            intro.classList.remove('visible');
+            curtain.classList.add('open');
+            portraits.classList.add('visible');
+        }
+        
+        // === PHASE 5: Portraits Stay ===
+        else {
+            logo.style.opacity = 0;
+            logo.style.visibility = 'hidden';
+            
+            stripes.classList.add('stripes-in');
+            intro.classList.remove('visible');
+            curtain.classList.add('open');
+            portraits.classList.add('visible');
+        }
+        
+        // Hide fixed layers when we've scrolled past them
+        const pastFixed = scrollY > fixedDistance;
+        
+        if (pastFixed) {
+            logo.style.display = 'none';
+            stripes.style.display = 'none';
+            intro.style.display = 'none';
+            curtain.style.display = 'none';
+            portraits.style.display = 'none';
+        } else {
+            logo.style.display = '';
+            stripes.style.display = '';
+            intro.style.display = '';
+            curtain.style.display = '';
+            portraits.style.display = '';
+        }
     }
-
-    // Run on DOM ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
+    
+    // Throttled scroll handler for performance
+    let ticking = false;
+    
+    function onScroll() {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                handleScroll();
+                ticking = false;
+            });
+            ticking = true;
+        }
     }
-
+    
+    // Initialize
+    window.addEventListener('scroll', onScroll, { passive: true });
+    handleScroll();
+    
+    console.log('🎙️ GanzKurz initialized');
+    
 })();
