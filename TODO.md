@@ -14,8 +14,8 @@ Draufsicht auf einen investigativen Schreibtisch. Dokumente, Fotos, Notizen vers
 
 ### Dokumente & Papiere
 - [x] **doc_classified.png** - "CLASSIFIED" Stempel-Dokument (transparenter Hintergrund)
-- [ ] **doc_redacted.png** - Geschwärztes Dokument mit sichtbaren Fragmenten
-- [ ] **doc_memo.png** - Internes Memo, vergilbtes Papier
+- [x] **doc_redacted.png** - Geschwärztes Dokument mit sichtbaren Fragmenten
+- [x] **doc_memo.png** - Internes Memo, vergilbtes Papier
 - [ ] **doc_envelope.png** - Brauner Umschlag, leicht geöffnet
 
 ### Fotos
