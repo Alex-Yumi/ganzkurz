@@ -3,23 +3,23 @@
    ============================================ */
 
 const studio = document.getElementById('studio');
-const studioBg = document.querySelector('.studio-bg');
-const hotspots = document.querySelectorAll('.hotspot');
+const studioBg = document.getElementById('studioBg');
+const screens = document.querySelectorAll('.screen-overlay');
 const panels = document.querySelectorAll('.content-panel');
 
 let currentTopic = null;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    // Add click listeners to hotspots
-    hotspots.forEach(hotspot => {
-        hotspot.addEventListener('click', () => {
-            const topic = hotspot.dataset.topic;
+    // Add click listeners to screen overlays
+    screens.forEach(screen => {
+        screen.addEventListener('click', () => {
+            const topic = screen.dataset.topic;
             zoomToTopic(topic);
         });
     });
     
-    // Allow clicking outside panel to go back
+    // Allow clicking outside panel content to go back
     panels.forEach(panel => {
         panel.addEventListener('click', (e) => {
             if (e.target === panel) {
@@ -37,55 +37,34 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function zoomToTopic(topic) {
-    if (currentTopic) return; // Already zoomed
+    if (currentTopic) return;
     
     currentTopic = topic;
     
     // Add zoomed state
     studio.classList.add('zoomed');
     
-    // Apply zoom transform
-    studioBg.classList.add(`zoom-${topic}`);
-    
-    // Show corresponding panel after zoom animation
+    // Show corresponding panel
     setTimeout(() => {
         const panel = document.getElementById(`panel-${topic}`);
         if (panel) {
             panel.classList.add('active');
         }
-    }, 800);
+    }, 400);
 }
 
 function zoomOut() {
     if (!currentTopic) return;
     
-    // Hide panel first
+    // Hide panel
     const panel = document.getElementById(`panel-${currentTopic}`);
     if (panel) {
         panel.classList.remove('active');
     }
     
-    // Remove zoom after panel fades
+    // Remove zoom state
     setTimeout(() => {
-        studioBg.classList.remove(`zoom-${currentTopic}`);
         studio.classList.remove('zoomed');
         currentTopic = null;
-    }, 300);
+    }, 200);
 }
-
-// Parallax effect on mouse move (subtle)
-document.addEventListener('mousemove', (e) => {
-    if (currentTopic) return; // Don't move when zoomed
-    
-    const x = (e.clientX / window.innerWidth - 0.5) * 10;
-    const y = (e.clientY / window.innerHeight - 0.5) * 10;
-    
-    studioBg.style.transform = `translate(${-x}px, ${-y}px)`;
-});
-
-// Reset on mouse leave
-document.addEventListener('mouseleave', () => {
-    if (!currentTopic) {
-        studioBg.style.transform = 'translate(0, 0)';
-    }
-});
