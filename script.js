@@ -1,58 +1,192 @@
-/* ============================================
-   GanzKurz — Netflix-style Scroll Transition
-   ============================================ */
+/**
+ * GanzKurz — Interactive Podcast Landing Page
+ * Professional scroll-triggered animations
+ */
 
-const logo = document.getElementById('logo');
-const stripes = document.getElementById('stripes');
-const content = document.getElementById('content');
-const scrollHint = document.querySelector('.scroll-hint');
+(function() {
+    'use strict';
 
-function handleScroll() {
-    const scrollY = window.scrollY || window.pageYOffset;
-    const vh = window.innerHeight;
-    
-    // Progress: 0 to 1 over 1.5 viewport heights
-    const progress = Math.min(scrollY / (vh * 1.5), 1);
-    
-    // === PHASE 1: Logo zoom (0% - 35%) ===
-    if (progress < 0.35) {
-        const p = progress / 0.35;
-        const scale = 1 + (p * 2);
-        const opacity = 1 - p;
-        
-        logo.style.transform = `translate(-50%, -50%) scale(${scale})`;
-        logo.style.opacity = opacity;
-        logo.style.visibility = 'visible';
-        
-        stripes.className = 'stripes-container';
-        content.classList.remove('visible');
-    }
-    
-    // === PHASE 2: Stripes IN (35% - 55%) ===
-    else if (progress < 0.55) {
-        logo.style.opacity = 0;
-        logo.style.visibility = 'hidden';
-        
-        stripes.className = 'stripes-container stripes-in';
-        content.classList.remove('visible');
-    }
-    
-    // === PHASE 3: Content appears over black (55%+) ===
-    else {
-        logo.style.opacity = 0;
-        logo.style.visibility = 'hidden';
-        
-        // Keep stripes IN (black background stays)
-        stripes.className = 'stripes-container stripes-in';
-        content.classList.add('visible');
-    }
-    
-    // Scroll hint
-    if (scrollHint) {
-        scrollHint.style.opacity = Math.max(0, 1 - progress * 4);
-    }
-}
+    // ============================================
+    // Configuration
+    // ============================================
+    const CONFIG = {
+        observerThreshold: 0.5,
+        observerRootMargin: '0px',
+        progressUpdateInterval: 10,
+    };
 
-window.addEventListener('scroll', handleScroll, { passive: true });
-document.addEventListener('DOMContentLoaded', handleScroll);
-handleScroll();
+    // ============================================
+    // DOM Elements
+    // ============================================
+    const elements = {
+        progressFill: document.querySelector('.progress-bar__fill'),
+        transition1: document.getElementById('transition-1'),
+        transition2: document.getElementById('transition-2'),
+        bios: document.querySelectorAll('.bio'),
+        hostCards: document.querySelectorAll('.host-card'),
+    };
+
+    // ============================================
+    // Progress Bar
+    // ============================================
+    function updateProgressBar() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrollTop / docHeight) * 100;
+        
+        if (elements.progressFill) {
+            elements.progressFill.style.width = `${Math.min(progress, 100)}%`;
+        }
+    }
+
+    // ============================================
+    // Intersection Observer for Animations
+    // ============================================
+    function createObserver(callback, options = {}) {
+        const defaultOptions = {
+            threshold: CONFIG.observerThreshold,
+            rootMargin: CONFIG.observerRootMargin,
+        };
+        
+        return new IntersectionObserver(callback, { ...defaultOptions, ...options });
+    }
+
+    // Transition 1: Netflix Stripes
+    function initTransition1() {
+        if (!elements.transition1) return;
+        
+        const observer = createObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-active');
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        observer.observe(elements.transition1);
+    }
+
+    // Transition 2: Reveal Curtain
+    function initTransition2() {
+        if (!elements.transition2) return;
+        
+        const observer = createObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-active');
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        observer.observe(elements.transition2);
+    }
+
+    // Bio Cards Animation
+    function initBioAnimations() {
+        if (!elements.bios.length) return;
+        
+        const observer = createObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.2 });
+        
+        elements.bios.forEach(bio => observer.observe(bio));
+    }
+
+    // Host Cards Stagger Animation
+    function initHostCardAnimations() {
+        if (!elements.hostCards.length) return;
+        
+        elements.hostCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `opacity 0.8s ease ${index * 0.2}s, transform 0.8s ease ${index * 0.2}s`;
+        });
+        
+        const observer = createObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const cards = entry.target.querySelectorAll('.host-card');
+                    cards.forEach(card => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    });
+                }
+            });
+        }, { threshold: 0.2 });
+        
+        const hostsSection = document.getElementById('hosts');
+        if (hostsSection) {
+            observer.observe(hostsSection);
+        }
+    }
+
+    // ============================================
+    // Smooth Scroll Enhancement
+    // ============================================
+    function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+
+    // ============================================
+    // Parallax Effect (subtle)
+    // ============================================
+    function initParallax() {
+        const hero = document.querySelector('.hero__content');
+        if (!hero) return;
+        
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const rate = scrolled * 0.3;
+            
+            if (scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${rate}px)`;
+                hero.style.opacity = 1 - (scrolled / window.innerHeight);
+            }
+        }, { passive: true });
+    }
+
+    // ============================================
+    // Initialization
+    // ============================================
+    function init() {
+        // Progress bar
+        window.addEventListener('scroll', updateProgressBar, { passive: true });
+        updateProgressBar();
+        
+        // Animations
+        initTransition1();
+        initTransition2();
+        initBioAnimations();
+        initHostCardAnimations();
+        
+        // Enhancements
+        initSmoothScroll();
+        initParallax();
+        
+        // Log ready state
+        console.log('🎙️ GanzKurz initialized');
+    }
+
+    // Run on DOM ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+})();

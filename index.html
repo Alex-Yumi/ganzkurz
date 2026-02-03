@@ -4,45 +4,183 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GanzKurz — Ein Podcast mit Fragen die bleiben</title>
+    
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Hero Section with Logo -->
-    <section class="hero">
-        <div class="logo-container" id="logo">
-            <h1 class="logo"><span class="ganz">Ganz</span><span class="kurz">Kurz</span></h1>
-            <p class="tagline">Ein Podcast mit Fragen die bleiben</p>
+    <!-- ============================================
+         SECTION 1: HERO - Logo & Brand
+         ============================================ -->
+    <section class="section section--hero" id="hero">
+        <div class="hero__background"></div>
+        <div class="hero__content">
+            <h1 class="logo">
+                <span class="logo__ganz">Ganz</span><span class="logo__kurz">Kurz</span>
+            </h1>
+            <p class="hero__tagline">Ein Podcast mit Fragen die bleiben</p>
         </div>
-        <div class="scroll-hint">↓</div>
+        <div class="scroll-indicator">
+            <span class="scroll-indicator__text">Scroll</span>
+            <div class="scroll-indicator__line"></div>
+        </div>
     </section>
     
-    <!-- Netflix-style Stripes Transition -->
-    <div class="stripes-container" id="stripes">
-        <div class="stripe stripe-1"></div>
-        <div class="stripe stripe-2"></div>
-        <div class="stripe stripe-3"></div>
-        <div class="stripe stripe-4"></div>
-        <div class="stripe stripe-5"></div>
-        <div class="stripe stripe-6"></div>
+    <!-- ============================================
+         TRANSITION 1: Netflix-style Stripes
+         ============================================ -->
+    <div class="transition transition--stripes" id="transition-1">
+        <div class="stripe stripe--1"></div>
+        <div class="stripe stripe--2"></div>
+        <div class="stripe stripe--3"></div>
+        <div class="stripe stripe--4"></div>
+        <div class="stripe stripe--5"></div>
+        <div class="stripe stripe--6"></div>
     </div>
     
-    <!-- Content Section (revealed after stripes) -->
-    <section class="content">
-        <div class="content-inner" id="content">
-            <h2>Was wäre, wenn alles was du weißt nur die halbe Geschichte ist?</h2>
-            <p>Wir graben dort, wo andere aufhören zu fragen. MK Ultra, Epstein, 9/11 — nicht als Verschwörungstheorien, sondern als dokumentierte Geschichte mit offenen Enden.</p>
-            <p>Zwei Freunde. Ein Mikrofon. Keine Angst vor unbequemen Fragen.</p>
-            <div class="hosts">
-                <span class="host">Alex</span>
-                <span class="ampersand">&</span>
-                <span class="host">Fabian</span>
+    <!-- ============================================
+         SECTION 2: INTRO - Teaser Text
+         ============================================ -->
+    <section class="section section--intro" id="intro">
+        <div class="intro__content">
+            <h2 class="intro__headline">
+                Was wäre, wenn alles was du weißt<br>
+                <span class="intro__highlight">nur die halbe Geschichte ist?</span>
+            </h2>
+            <p class="intro__text">
+                Wir graben dort, wo andere aufhören zu fragen.<br>
+                MK Ultra, Epstein, 9/11 — nicht als Verschwörungstheorien,<br>
+                sondern als dokumentierte Geschichte mit offenen Enden.
+            </p>
+            <div class="intro__topics">
+                <span class="topic-tag">MK Ultra</span>
+                <span class="topic-tag">Epstein</span>
+                <span class="topic-tag">9/11</span>
+                <span class="topic-tag">CIA Files</span>
             </div>
         </div>
     </section>
     
+    <!-- ============================================
+         TRANSITION 2: Reveal Wipe
+         ============================================ -->
+    <div class="transition transition--reveal" id="transition-2">
+        <div class="reveal__curtain reveal__curtain--left"></div>
+        <div class="reveal__curtain reveal__curtain--right"></div>
+    </div>
+    
+    <!-- ============================================
+         SECTION 3: HOSTS - Portrait Gallery
+         ============================================ -->
+    <section class="section section--hosts" id="hosts">
+        <div class="hosts__grid">
+            <!-- Alex -->
+            <article class="host-card" id="host-alex">
+                <div class="host-card__image-wrapper">
+                    <img src="host-alex.png" alt="Alex" class="host-card__image">
+                    <div class="host-card__overlay"></div>
+                </div>
+                <div class="host-card__info">
+                    <h3 class="host-card__name">Alex</h3>
+                    <p class="host-card__role">Co-Host</p>
+                </div>
+            </article>
+            
+            <!-- Ampersand -->
+            <div class="hosts__ampersand">&</div>
+            
+            <!-- Fabian -->
+            <article class="host-card" id="host-fabian">
+                <div class="host-card__image-wrapper">
+                    <img src="host-fabian.png" alt="Fabian" class="host-card__image">
+                    <div class="host-card__overlay"></div>
+                </div>
+                <div class="host-card__info">
+                    <h3 class="host-card__name">Fabian</h3>
+                    <p class="host-card__role">Co-Host</p>
+                </div>
+            </article>
+        </div>
+        
+        <p class="hosts__tagline">Zwei Freunde. Ein Mikrofon. Keine Angst vor unbequemen Fragen.</p>
+    </section>
+    
+    <!-- ============================================
+         SECTION 4: BIOS - Host Backgrounds
+         ============================================ -->
+    <section class="section section--bios" id="bios">
+        <div class="bios__container">
+            <!-- Alex Bio -->
+            <div class="bio" id="bio-alex">
+                <div class="bio__portrait">
+                    <img src="host-alex.png" alt="Alex">
+                </div>
+                <div class="bio__content">
+                    <h3 class="bio__name">Alex</h3>
+                    <p class="bio__text">
+                        Hinterfragt alles — von offiziellen Narrativen bis zur eigenen Überzeugung. 
+                        Bringt die unbequemen Fragen, die andere nicht stellen wollen.
+                    </p>
+                    <div class="bio__traits">
+                        <span class="trait">Skeptiker</span>
+                        <span class="trait">Rechercheur</span>
+                        <span class="trait">Storyteller</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fabian Bio -->
+            <div class="bio bio--reversed" id="bio-fabian">
+                <div class="bio__portrait">
+                    <img src="host-fabian.png" alt="Fabian">
+                </div>
+                <div class="bio__content">
+                    <h3 class="bio__name">Fabian</h3>
+                    <p class="bio__text">
+                        Der analytische Kopf im Team. Sortiert Fakten von Fiktion und 
+                        findet die Verbindungen, die andere übersehen.
+                    </p>
+                    <div class="bio__traits">
+                        <span class="trait">Analytiker</span>
+                        <span class="trait">Faktenchecker</span>
+                        <span class="trait">Devil's Advocate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ============================================
+         SECTION 5: CTA - Call to Action
+         ============================================ -->
+    <section class="section section--cta" id="cta">
+        <div class="cta__content">
+            <p class="cta__text">Der Podcast startet bald.</p>
+            <h2 class="cta__headline">Bist du bereit für die ganze Geschichte?</h2>
+            <a href="#" class="cta__button">
+                <span>Coming Soon</span>
+                <svg class="cta__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+    
+    <!-- ============================================
+         Progress Indicator
+         ============================================ -->
+    <div class="progress-bar" id="progress">
+        <div class="progress-bar__fill"></div>
+    </div>
+    
+    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
