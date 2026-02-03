@@ -70,7 +70,7 @@ body {
 }
 
 .mic-fixed img {
-    height: 40vh;
+    height: 30vh;
     width: auto;
     filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.7));
 }
@@ -107,12 +107,12 @@ body {
 }
 
 /* ============================================
-   Table (bottom, foreground)
+   Table (bottom, foreground) - SMALL
    ============================================ */
 
 .table-container {
     position: fixed;
-    bottom: 0;
+    bottom: -5vh;
     left: 0;
     right: 0;
     z-index: 80;
@@ -121,7 +121,9 @@ body {
 
 .table-img {
     width: 100%;
-    height: auto;
+    height: 25vh;
+    object-fit: cover;
+    object-position: center top;
     display: block;
     filter: drop-shadow(0 -10px 50px rgba(0, 0, 0, 0.6));
 }
