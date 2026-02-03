@@ -100,55 +100,37 @@ body {
     display: flex;
     flex-direction: column;
     pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.stripes-container.active {
-    opacity: 1;
 }
 
 .stripe {
     flex: 1;
-    background: var(--navy-dark);
+    background: #000000;
     transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Alternating origins for cool effect */
-.stripe:nth-child(odd) {
-    transform-origin: left center;
-}
+/* Alternating origins */
+.stripe:nth-child(odd) { transform-origin: left center; }
+.stripe:nth-child(even) { transform-origin: right center; }
 
-.stripe:nth-child(even) {
-    transform-origin: right center;
-}
+/* Staggered delays */
+.stripe-1 { transition-delay: 0.0s; }
+.stripe-2 { transition-delay: 0.08s; }
+.stripe-3 { transition-delay: 0.16s; }
+.stripe-4 { transition-delay: 0.24s; }
+.stripe-5 { transition-delay: 0.32s; }
+.stripe-6 { transition-delay: 0.4s; }
 
-/* Staggered animation delays */
-.stripe-1 { transition-delay: 0s; }
-.stripe-2 { transition-delay: 0.05s; }
-.stripe-3 { transition-delay: 0.1s; }
-.stripe-4 { transition-delay: 0.15s; }
-.stripe-5 { transition-delay: 0.2s; }
-.stripe-6 { transition-delay: 0.25s; }
-
-/* When stripes are "in" */
+/* Stripes visible */
 .stripes-container.stripes-in .stripe {
     transform: scaleX(1);
 }
 
-/* When stripes are "out" - slide other direction */
+/* Stripes out - flip origins */
+.stripes-container.stripes-out .stripe:nth-child(odd) { transform-origin: right center; }
+.stripes-container.stripes-out .stripe:nth-child(even) { transform-origin: left center; }
 .stripes-container.stripes-out .stripe {
     transform: scaleX(0);
-}
-
-.stripes-container.stripes-out .stripe:nth-child(odd) {
-    transform-origin: right center;
-}
-
-.stripes-container.stripes-out .stripe:nth-child(even) {
-    transform-origin: left center;
 }
 
 /* ============================================
