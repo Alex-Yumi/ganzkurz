@@ -73,12 +73,12 @@ Draufsicht auf einen investigativen Schreibtisch. Dokumente, Fotos, Notizen vers
 
 ## Phase 3: CSS Styling 🎨
 
-- [ ] **Basis-Layout**
+- [x] **Basis-Layout**
   - Full viewport Hero
   - Overflow hidden
   - Perspective für 3D
 
-- [ ] **Desk Items**
+- [x] **Desk Items**
   ```css
   .desk-item {
     position: absolute;
@@ -96,19 +96,19 @@ Draufsicht auf einen investigativen Schreibtisch. Dokumente, Fotos, Notizen vers
   }
   ```
 
-- [ ] **Parallax Layer Styling**
+- [x] **Parallax Layer Styling**
   - Unterschiedliche transform-origin pro Layer
   - Smooth transitions
 
-- [ ] **Content Overlay**
-  - Glasmorphism Box
-  - Zentriert oder unten
+- [x] **Content Overlay**
+  - Radial gradient background (dark center fading out)
+  - Zentriert, min-height 100vh
   - Lesbar über dem Chaos
 
-- [ ] **Responsive Anpassungen**
-  - Mobile: Weniger Items, größer
-  - Tablet: Mittlere Dichte
-  - Desktop: Volle Pracht
+- [x] **Responsive Anpassungen**
+  - Mobile: 120px max-width, stärkerer Overlay
+  - Tablet: 280px max-width
+  - Desktop: 350px max-width
 
 ---
 
