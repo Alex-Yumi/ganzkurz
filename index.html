@@ -10,38 +10,80 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Hero Section with Logo -->
-    <section class="hero">
-        <div class="logo-container" id="logo">
-            <h1 class="logo"><span class="ganz">Ganz</span><span class="kurz">Kurz</span></h1>
-            <p class="tagline">Ein Podcast mit Fragen die bleiben</p>
-        </div>
-        <div class="scroll-hint">↓</div>
-    </section>
-    
-    <!-- Netflix-style Stripes Transition -->
-    <div class="stripes-container" id="stripes">
-        <div class="stripe stripe-1"></div>
-        <div class="stripe stripe-2"></div>
-        <div class="stripe stripe-3"></div>
-        <div class="stripe stripe-4"></div>
-        <div class="stripe stripe-5"></div>
-        <div class="stripe stripe-6"></div>
+    <!-- Background Slideshow -->
+    <div class="slideshow">
+        <div class="slide active" style="background-image: url('topic-mkultra.png')"></div>
+        <div class="slide" style="background-image: url('topic-epstein.png')"></div>
+        <div class="slide" style="background-image: url('topic-911.png')"></div>
+        <div class="slide" style="background-image: url('topic-cia.png')"></div>
     </div>
     
-    <!-- Content Section (revealed after stripes) -->
-    <section class="content">
-        <div class="content-inner" id="content">
-            <h2>Was wäre, wenn alles was du weißt nur die halbe Geschichte ist?</h2>
-            <p>Wir graben dort, wo andere aufhören zu fragen. MK Ultra, Epstein, 9/11 — nicht als Verschwörungstheorien, sondern als dokumentierte Geschichte mit offenen Enden.</p>
-            <p>Zwei Freunde. Ein Mikrofon. Keine Angst vor unbequemen Fragen.</p>
-            <div class="hosts">
-                <span class="host">Alex</span>
-                <span class="ampersand">&</span>
-                <span class="host">Fabian</span>
-            </div>
+    <!-- Dark Overlay for readability -->
+    <div class="overlay"></div>
+    
+    <!-- Silhouettes Layer -->
+    <div class="silhouettes">
+        <!-- Left Host Silhouette -->
+        <svg class="host-left" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- Head -->
+            <ellipse cx="100" cy="50" rx="35" ry="42" fill="black"/>
+            <!-- Neck -->
+            <rect x="85" y="88" width="30" height="20" fill="black"/>
+            <!-- Shoulders & Torso -->
+            <path d="M30,140 Q50,110 100,108 Q150,110 170,140 L170,300 L30,300 Z" fill="black"/>
+            <!-- Arm reaching to mic -->
+            <path d="M150,140 Q180,160 175,200 Q172,220 160,230" fill="black" stroke="black" stroke-width="20" stroke-linecap="round"/>
+        </svg>
+        
+        <!-- Right Host Silhouette -->
+        <svg class="host-right" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- Head -->
+            <ellipse cx="100" cy="50" rx="35" ry="42" fill="black"/>
+            <!-- Neck -->
+            <rect x="85" y="88" width="30" height="20" fill="black"/>
+            <!-- Shoulders & Torso -->
+            <path d="M30,140 Q50,110 100,108 Q150,110 170,140 L170,300 L30,300 Z" fill="black"/>
+            <!-- Arm on table -->
+            <path d="M50,140 Q20,160 25,200 Q28,220 40,230" fill="black" stroke="black" stroke-width="20" stroke-linecap="round"/>
+        </svg>
+        
+        <!-- Table -->
+        <div class="table"></div>
+        
+        <!-- Microphones -->
+        <div class="mic mic-left">
+            <div class="mic-stand"></div>
+            <div class="mic-head"></div>
         </div>
-    </section>
+        <div class="mic mic-right">
+            <div class="mic-stand"></div>
+            <div class="mic-head"></div>
+        </div>
+    </div>
+    
+    <!-- Content -->
+    <div class="content">
+        <h1 class="logo"><span class="ganz">Ganz</span><span class="kurz">Kurz</span></h1>
+        <p class="tagline">Ein Podcast mit Fragen die bleiben</p>
+        
+        <div class="topics">
+            <span class="topic">MK Ultra</span>
+            <span class="dot">·</span>
+            <span class="topic">Epstein</span>
+            <span class="dot">·</span>
+            <span class="topic">9/11</span>
+            <span class="dot">·</span>
+            <span class="topic">CIA Files</span>
+        </div>
+        
+        <div class="hosts-names">
+            <span>Alex</span>
+            <span class="amp">&</span>
+            <span>Fabian</span>
+        </div>
+        
+        <a href="#" class="cta">Bald verfügbar</a>
+    </div>
     
     <script src="script.js"></script>
 </body>
