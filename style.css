@@ -10,13 +10,64 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Playfair Display', Georgia, serif;
+    overflow: hidden;
 }
 
+main {
+    text-align: center;
+    perspective: 1000px;
+}
+
+/* ============================================
+   3D Flip Container
+   ============================================ */
+
+.flip-container {
+    display: inline-block;
+    perspective: 1000px;
+}
+
+.flipper {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flipper.flipped {
+    transform: rotateX(-180deg);
+}
+
+.front, .back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.front {
+    position: relative;
+    z-index: 2;
+}
+
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: rotateX(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+
 .logo {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(4rem, 15vw, 12rem);
+    font-size: clamp(3rem, 12vw, 10rem);
     font-weight: 900;
     letter-spacing: -0.02em;
+    line-height: 1;
 }
 
 .ganz {
@@ -25,4 +76,59 @@ body {
 
 .kurz {
     color: #c9a227;
+}
+
+.topic {
+    font-size: clamp(2.5rem, 10vw, 8rem);
+    font-weight: 900;
+    color: #c9a227;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.tagline {
+    margin-top: 2rem;
+    font-size: clamp(0.875rem, 2.5vw, 1.25rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+    .logo {
+        font-size: clamp(2.5rem, 15vw, 5rem);
+    }
+    
+    .topic {
+        font-size: clamp(2rem, 12vw, 4rem);
+    }
+    
+    .tagline {
+        margin-top: 1.5rem;
+        letter-spacing: 0.15em;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: clamp(2rem, 18vw, 4rem);
+    }
+    
+    .topic {
+        font-size: clamp(1.5rem, 14vw, 3rem);
+    }
+}
+
+@media (max-height: 500px) {
+    .tagline {
+        margin-top: 1rem;
+    }
 }

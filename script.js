@@ -1,20 +1,32 @@
 /* ============================================
-   GanzKurz — Background Slideshow
+   GanzKurz — 3D Flip Animation
    ============================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
-    const slides = document.querySelectorAll('.slide');
-    let currentSlide = 0;
+const topics = ['MK Ultra', 'Epstein', '9/11', 'CIA Files'];
+let currentTopic = 0;
+
+const flipper = document.querySelector('.flipper');
+const topicEl = document.getElementById('topic');
+
+function flipToTopic() {
+    // Set the topic text before flipping
+    topicEl.textContent = topics[currentTopic];
     
-    // Change slide every 10 seconds
-    setInterval(() => {
-        // Remove active from current
-        slides[currentSlide].classList.remove('active');
+    // Flip to show topic
+    flipper.classList.add('flipped');
+    
+    // After 3 seconds, flip back to logo
+    setTimeout(() => {
+        flipper.classList.remove('flipped');
         
-        // Move to next slide
-        currentSlide = (currentSlide + 1) % slides.length;
-        
-        // Add active to new slide
-        slides[currentSlide].classList.add('active');
-    }, 10000);
-});
+        // Move to next topic for next flip
+        currentTopic = (currentTopic + 1) % topics.length;
+    }, 3000);
+}
+
+// Start the animation cycle
+// Wait 2 seconds, then flip every 5 seconds
+setTimeout(() => {
+    flipToTopic();
+    setInterval(flipToTopic, 6000);
+}, 2000);
