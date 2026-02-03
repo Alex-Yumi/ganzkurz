@@ -1,314 +1,91 @@
-// === GanzKurz Landing Page Scripts ===
+/* ============================================
+   GanzKurz — Interactive Studio Script
+   ============================================ */
 
+const studio = document.getElementById('studio');
+const studioBg = document.querySelector('.studio-bg');
+const hotspots = document.querySelectorAll('.hotspot');
+const panels = document.querySelectorAll('.content-panel');
+
+let currentTopic = null;
+
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    // 3D Desk Parallax Engine
-    initDeskParallax();
-    
-    // Smooth reveal animations on scroll
-    initScrollAnimations();
-    
-    // Form handling
-    initNotifyForm();
-    
-    // Scroll-based parallax for hero section
-    initParallax();
-});
-
-// === 3D DESK PARALLAX ENGINE ===
-function initDeskParallax() {
-  const heroDesk = document.querySelector('.hero-desk');
-  if (!heroDesk) return;
-  
-  const layers = heroDesk.querySelectorAll('.desk-layer');
-  
-  // Mouse move handler
-  const handleMouseMove = (e) => {
-    const rect = heroDesk.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    // Mouse position relative to center (-1 to 1)
-    const mouseX = (e.clientX - rect.left - centerX) / centerX;
-    const mouseY = (e.clientY - rect.top - centerY) / centerY;
-    
-    layers.forEach(layer => {
-      const depth = parseFloat(layer.dataset.depth) || 0.1;
-      const moveX = mouseX * depth * 50; // Max 50px movement
-      const moveY = mouseY * depth * 50;
-      
-      layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    // Add click listeners to hotspots
+    hotspots.forEach(hotspot => {
+        hotspot.addEventListener('click', () => {
+            const topic = hotspot.dataset.topic;
+            zoomToTopic(topic);
+        });
     });
-  };
-  
-  // Throttle for performance
-  let ticking = false;
-  heroDesk.addEventListener('mousemove', (e) => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        handleMouseMove(e);
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-  
-  // Reset on mouse leave
-  heroDesk.addEventListener('mouseleave', () => {
-    layers.forEach(layer => {
-      layer.style.transform = 'translate(0, 0)';
-    });
-  });
-  
-  // Mobile: Gyroscope support (optional)
-  if (window.DeviceOrientationEvent && 'ontouchstart' in window) {
-    window.addEventListener('deviceorientation', (e) => {
-      if (e.gamma === null || e.beta === null) return;
-      
-      const tiltX = Math.max(-1, Math.min(1, e.gamma / 30));
-      const tiltY = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
-      
-      layers.forEach(layer => {
-        const depth = parseFloat(layer.dataset.depth) || 0.1;
-        const moveX = tiltX * depth * 30;
-        const moveY = tiltY * depth * 30;
-        
-        layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
-      });
-    });
-  }
-}
-
-// === Scroll Animations ===
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
     
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+    // Allow clicking outside panel to go back
+    panels.forEach(panel => {
+        panel.addEventListener('click', (e) => {
+            if (e.target === panel) {
+                zoomOut();
             }
         });
-    }, observerOptions);
-    
-    // Add animate class to elements for scroll effects
-    const animatedElements = document.querySelectorAll(
-        '.section-label, .section-title, .section-text, .feature, .topic-card'
-    );
-    
-    animatedElements.forEach((el, index) => {
-        el.classList.add('animate');
-        el.style.transitionDelay = `${index * 0.1}s`;
-        observer.observe(el);
     });
-}
-
-// === Notify Form ===
-function initNotifyForm() {
-    const form = document.getElementById('notifyForm');
-    if (!form) return;
     
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const button = form.querySelector('button');
-        const input = form.querySelector('input');
-        const email = input.value;
-        
-        // Animate button
-        button.innerHTML = '<span>Wird gesendet...</span>';
-        button.disabled = true;
-        
-        // Simulate API call (replace with real endpoint later)
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // Success state
-        button.innerHTML = '<span>✓ Eingetragen!</span>';
-        button.style.background = '#22c55e';
-        input.value = '';
-        
-        // Reset after delay
-        setTimeout(() => {
-            button.innerHTML = `
-                <span>Benachrichtigen</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            `;
-            button.style.background = '';
-            button.disabled = false;
-        }, 3000);
-        
-        console.log('Email submitted:', email);
-    });
-}
-
-// === Parallax Effect (Scroll-based) ===
-function initParallax() {
-    const heroDesk = document.querySelector('.hero-desk');
-    
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * 0.3;
-        
-        if (heroDesk) {
-            heroDesk.style.transform = `translateY(${rate}px)`;
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && currentTopic) {
+            zoomOut();
         }
-    });
-}
-
-// === Redacted Text Glitch Effect ===
-const redactedElements = document.querySelectorAll('.redacted');
-
-redactedElements.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        // Glitch animation
-        el.style.animation = 'glitch 0.3s ease-out';
-    });
-    
-    el.addEventListener('mouseleave', () => {
-        el.style.animation = '';
     });
 });
 
-// Add glitch keyframes dynamically
-const glitchStyle = document.createElement('style');
-glitchStyle.textContent = `
-    @keyframes glitch {
-        0% { transform: translate(0); }
-        20% { transform: translate(-2px, 2px); }
-        40% { transform: translate(-2px, -2px); }
-        60% { transform: translate(2px, 2px); }
-        80% { transform: translate(2px, -2px); }
-        100% { transform: translate(0); }
-    }
-`;
-document.head.appendChild(glitchStyle);
-
-// === Topic Cards Tilt Effect ===
-const topicCards = document.querySelectorAll('.topic-card');
-
-topicCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-    });
+function zoomToTopic(topic) {
+    if (currentTopic) return; // Already zoomed
     
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-    });
+    currentTopic = topic;
+    
+    // Add zoomed state
+    studio.classList.add('zoomed');
+    
+    // Apply zoom transform
+    studioBg.classList.add(`zoom-${topic}`);
+    
+    // Show corresponding panel after zoom animation
+    setTimeout(() => {
+        const panel = document.getElementById(`panel-${topic}`);
+        if (panel) {
+            panel.classList.add('active');
+        }
+    }, 800);
+}
+
+function zoomOut() {
+    if (!currentTopic) return;
+    
+    // Hide panel first
+    const panel = document.getElementById(`panel-${currentTopic}`);
+    if (panel) {
+        panel.classList.remove('active');
+    }
+    
+    // Remove zoom after panel fades
+    setTimeout(() => {
+        studioBg.classList.remove(`zoom-${currentTopic}`);
+        studio.classList.remove('zoomed');
+        currentTopic = null;
+    }, 300);
+}
+
+// Parallax effect on mouse move (subtle)
+document.addEventListener('mousemove', (e) => {
+    if (currentTopic) return; // Don't move when zoomed
+    
+    const x = (e.clientX / window.innerWidth - 0.5) * 10;
+    const y = (e.clientY / window.innerHeight - 0.5) * 10;
+    
+    studioBg.style.transform = `translate(${-x}px, ${-y}px)`;
 });
 
-// === Typing Effect for Tagline (Optional Enhancement) ===
-function typeWriter(element, text, speed = 50) {
-    let i = 0;
-    element.textContent = '';
-    
-    function type() {
-        if (i < text.length) {
-            element.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
+// Reset on mouse leave
+document.addEventListener('mouseleave', () => {
+    if (!currentTopic) {
+        studioBg.style.transform = 'translate(0, 0)';
     }
-    
-    type();
-}
-
-// === Console Easter Egg ===
-console.log(`
-%c🔍 GanzKurz
-%cDie Wahrheit braucht Zeit.
-
-Du schaust hinter die Kulissen? Gut so.
-Das ist genau der Spirit, den wir suchen.
-
-Coming Soon.
-`, 
-'font-size: 24px; font-weight: bold; color: #c9a227;',
-'font-size: 14px; color: #888;'
-);
-
-// === LEGACY: Hero Image Carousel (disabled - replaced by 3D Desk) ===
-/*
-function initHeroCarousel() {
-    const hero = document.getElementById('hero');
-    if (!hero) return;
-    
-    const bgCurrent = hero.querySelector('.hero-bg-current');
-    const bgNext = hero.querySelector('.hero-bg-next');
-    const bgReveal = hero.querySelector('.hero-bg-reveal');
-    
-    // Hero images array
-    const heroImages = [
-        'studio_hero.png'
-    ];
-    
-    let currentIndex = 0;
-    const intervalTime = 10000; // 10 seconds
-    
-    // Set initial images
-    bgCurrent.style.backgroundImage = `url('${heroImages[0]}')`;
-    bgNext.style.backgroundImage = `url('${heroImages[1]}')`;
-    bgReveal.style.backgroundImage = `url('${heroImages[1]}')`;
-    
-    // Cursor tracking for reveal effect
-    hero.addEventListener('mousemove', (e) => {
-        const rect = hero.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        
-        hero.style.setProperty('--mouse-x', `${x}%`);
-        hero.style.setProperty('--mouse-y', `${y}%`);
-    });
-    
-    // Image transition function
-    function transitionToNext() {
-        const nextIndex = (currentIndex + 1) % heroImages.length;
-        const afterNextIndex = (nextIndex + 1) % heroImages.length;
-        
-        // Fade transition
-        bgCurrent.style.opacity = '0';
-        bgNext.style.opacity = '1';
-        bgNext.style.zIndex = '1';
-        bgCurrent.style.zIndex = '0';
-        
-        // After transition, swap roles
-        setTimeout(() => {
-            currentIndex = nextIndex;
-            
-            // Swap the elements' classes/roles
-            bgCurrent.style.backgroundImage = `url('${heroImages[nextIndex]}')`;
-            bgCurrent.style.opacity = '1';
-            bgCurrent.style.zIndex = '1';
-            
-            bgNext.style.backgroundImage = `url('${heroImages[afterNextIndex]}')`;
-            bgNext.style.opacity = '0';
-            bgNext.style.zIndex = '0';
-            
-            // Update reveal to show next image
-            bgReveal.style.backgroundImage = `url('${heroImages[afterNextIndex]}')`;
-        }, 1500);
-    }
-    
-    // Start carousel
-    setInterval(transitionToNext, intervalTime);
-    
-    // Preload images
-    heroImages.forEach(src => {
-        const img = new Image();
-        img.src = src;
-    });
-}
-*/
+});
