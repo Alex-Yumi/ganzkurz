@@ -26,8 +26,8 @@ Draufsicht auf einen investigativen Schreibtisch. Dokumente, Fotos, Notizen vers
 
 ### Requisiten
 - [x] **prop_coffee.png** - Kaffeetasse von oben (halb voll)
-- [ ] **prop_pen.png** - Kugelschreiber diagonal
-- [ ] **prop_glasses.png** - Lesebrille
+- [x] **prop_pen.png** - Kugelschreiber diagonal
+- [x] **prop_glasses.png** - Lesebrille
 - [ ] **prop_postit.png** - Post-it mit "?" darauf
 - [ ] **prop_paperclip.png** - Büroklammer
 
