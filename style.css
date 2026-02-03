@@ -1,5 +1,5 @@
 /* ============================================
-   GanzKurz — Scrollable Topics Design
+   GanzKurz — Slideshow Background
    ============================================ */
 
 * {
@@ -11,25 +11,53 @@
 :root {
     --font-display: 'Playfair Display', Georgia, serif;
     --font-body: 'Inter', -apple-system, sans-serif;
-    --color-bg: #0a0a0a;
     --color-text: #f5f5f5;
-    --color-accent: #c9a227;
-    --color-green: #00b140;
 }
 
-html {
-    scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
+html, body {
+    height: 100%;
+    overflow: hidden;
 }
 
 body {
-    background: var(--color-bg);
+    background: #000;
     color: var(--color-text);
     font-family: var(--font-body);
 }
 
 /* ============================================
-   Fixed Microphone
+   Background Slideshow
+   ============================================ */
+
+.slideshow {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+/* Slight darkening for text readability */
+.slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   Fixed Microphone (top)
    ============================================ */
 
 .mic-fixed {
@@ -48,96 +76,38 @@ body {
 }
 
 /* ============================================
-   Topic Sections (Scrollable)
+   Logo (center)
    ============================================ */
 
-.content {
-    position: relative;
-}
-
-.topic-section {
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    scroll-snap-align: start;
-}
-
-.topic-bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    z-index: 0;
-}
-
-.topic-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-}
-
-/* Green background for hero */
-.green-bg {
-    background: linear-gradient(180deg, 
-        #004d1a 0%, 
-        var(--color-green) 50%,
-        #008830 100%
-    ) !important;
-}
-
-.green-bg::after {
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.topic-content {
-    position: relative;
-    z-index: 10;
+.logo-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    padding: 2rem;
-    padding-top: 35vh; /* Space for mic */
+    z-index: 50;
 }
 
-/* ============================================
-   Typography
-   ============================================ */
-
-.logo, .topic-section h2 {
+.logo {
     font-family: var(--font-display);
-    font-size: clamp(3rem, 12vw, 7rem);
+    font-size: clamp(3rem, 12vw, 8rem);
     font-weight: 900;
     color: var(--color-text);
-    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+    text-shadow: 0 4px 40px rgba(0, 0, 0, 0.8);
     margin-bottom: 0.5rem;
 }
 
-.tagline, .topic-subtitle {
+.tagline {
     font-size: clamp(1rem, 3vw, 1.5rem);
     font-weight: 300;
     color: rgba(255, 255, 255, 0.9);
-    letter-spacing: 0.2em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
-    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
-}
-
-.scroll-hint {
-    margin-top: 3rem;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.6);
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(10px); }
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
 }
 
 /* ============================================
-   Table Container (Fixed at bottom)
+   Table (bottom, foreground)
    ============================================ */
 
 .table-container {
@@ -145,7 +115,7 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 50;
+    z-index: 80;
     pointer-events: none;
 }
 
@@ -153,7 +123,7 @@ body {
     width: 100%;
     height: auto;
     display: block;
-    filter: drop-shadow(0 -10px 40px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 -10px 50px rgba(0, 0, 0, 0.6));
 }
 
 /* ============================================
@@ -164,23 +134,10 @@ body {
     .mic-fixed img {
         height: 28vh;
     }
-    
-    .topic-content {
-        padding-top: 25vh;
-    }
-    
-    .table-img {
-        /* Crop table on mobile to show less */
-        margin-bottom: -10vh;
-    }
 }
 
 @media (max-height: 600px) {
     .mic-fixed img {
         height: 22vh;
-    }
-    
-    .topic-content {
-        padding-top: 18vh;
     }
 }
