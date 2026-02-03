@@ -280,18 +280,19 @@ html, body {
    Zoom Animation Classes
    ============================================ */
 
+/* Zoom transforms - translate moves opposite to screen position */
 .studio-bg.zoom-mkultra {
-    transform: scale(4) translate(8%, 15%);
+    transform: scale(4) translate(-2%, 18%);
 }
 
 .studio-bg.zoom-epstein {
-    transform: scale(4) translate(-5%, 15%);
+    transform: scale(4) translate(-10%, 18%);
 }
 
 .studio-bg.zoom-911 {
-    transform: scale(3) translate(-12%, -8%);
+    transform: scale(3) translate(-12%, 2%);
 }
 
 .studio-bg.zoom-cia {
-    transform: scale(5) translate(15%, 8%);
+    transform: scale(5) translate(20%, 12%);
 }
