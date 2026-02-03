@@ -13,7 +13,7 @@
 | 3 | doc_redacted.png | ✅ | 22:31 | 22:33 |
 | 4 | doc_memo.png | ✅ | 00:00 | 00:02 |
 | 5 | doc_envelope.png | ✅ | 00:02 | 00:02 |
-| 6 | photo_epstein.png | ⏳ | - | - |
+| 6 | photo_epstein.png | ✅ | - | - |
 | 7 | photo_mkultra.png | ⏳ | - | - |
 | 8 | photo_911.png | ⏳ | - | - |
 | 9 | prop_coffee.png | ⏳ | - | - |
