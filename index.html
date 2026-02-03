@@ -10,82 +10,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Studio Container - maintains aspect ratio -->
-    <div class="studio-wrapper">
-        <div class="studio-container" id="studio">
-            <!-- Base studio image -->
-            <img src="studio-hero-2026-02-03.png" alt="GanzKurz Podcast Studio" class="studio-bg" id="studioBg">
-            
-            <!-- Screen overlays with images (positioned over greenscreens) -->
-            <div class="screen-overlay" data-topic="mkultra" style="--x: 54.7%; --y: 14.8%; --w: 10.5%; --h: 15.8%;">
-                <img src="screen-mkultra.png" alt="MK Ultra">
-                <span class="screen-label">MK Ultra</span>
-            </div>
-            
-            <div class="screen-overlay" data-topic="epstein" style="--x: 66.9%; --y: 14.8%; --w: 10.9%; --h: 15.8%;">
-                <img src="screen-epstein.png" alt="Epstein">
-                <span class="screen-label">Epstein</span>
-            </div>
-            
-            <div class="screen-overlay" data-topic="911" style="--x: 66.9%; --y: 40%; --w: 17.1%; --h: 22.7%;">
-                <img src="screen-911.png" alt="9/11">
-                <span class="screen-label">9/11</span>
-            </div>
-            
-            <div class="screen-overlay" data-topic="cia" style="--x: 25.8%; --y: 24.9%; --w: 7.3%; --h: 13.5%;">
-                <img src="screen-cia.png" alt="CIA Files">
-                <span class="screen-label">CIA</span>
-            </div>
-            
-            <!-- Logo Overlay -->
-            <div class="logo-overlay" id="logoOverlay">
+    <!-- Fixed Microphone (stays at top while scrolling) -->
+    <div class="mic-fixed">
+        <img src="mic-transparent.png" alt="Podcast Microphone">
+    </div>
+    
+    <!-- Main Content Area -->
+    <main class="content">
+        <!-- Green Background Area (for topic images later) -->
+        <section class="green-stage">
+            <div class="logo-container">
                 <h1 class="logo">GanzKurz</h1>
                 <p class="tagline">Die Wahrheit braucht Zeit</p>
-                <p class="cta-hint">Klicke auf einen Bildschirm</p>
             </div>
+        </section>
+        
+        <!-- Table at bottom -->
+        <div class="table-container">
+            <img src="table-transparent.png" alt="Podcast Table" class="table-img">
         </div>
-    </div>
-    
-    <!-- Content Panels (shown after zoom) -->
-    <div class="content-panel" id="panel-mkultra">
-        <button class="back-btn" onclick="zoomOut()">← Zurück</button>
-        <div class="panel-content">
-            <h2>MK Ultra</h2>
-            <p class="panel-subtitle">Die Gedankenkontroll-Experimente der CIA</p>
-            <p>Von 1953 bis 1973 führte die CIA illegale Experimente an ahnungslosen Bürgern durch. LSD, Elektroschocks, Hypnose — alles im Namen der "nationalen Sicherheit".</p>
-            <a href="#" class="panel-cta">Episode anhören →</a>
-        </div>
-    </div>
-    
-    <div class="content-panel" id="panel-epstein">
-        <button class="back-btn" onclick="zoomOut()">← Zurück</button>
-        <div class="panel-content">
-            <h2>Epstein</h2>
-            <p class="panel-subtitle">Das Netzwerk der Macht</p>
-            <p>Jeffrey Epstein war kein Einzeltäter. Ein Netz aus Milliardären, Politikern und Geheimdiensten. Wer wusste was? Und warum schweigen sie?</p>
-            <a href="#" class="panel-cta">Episode anhören →</a>
-        </div>
-    </div>
-    
-    <div class="content-panel" id="panel-911">
-        <button class="back-btn" onclick="zoomOut()">← Zurück</button>
-        <div class="panel-content">
-            <h2>9/11</h2>
-            <p class="panel-subtitle">Die Fragen die bleiben</p>
-            <p>20+ Jahre später. Tausende Seiten Akten. Und immer noch: offene Fragen. Was wussten die Geheimdienste? Wer profitierte?</p>
-            <a href="#" class="panel-cta">Episode anhören →</a>
-        </div>
-    </div>
-    
-    <div class="content-panel" id="panel-cia">
-        <button class="back-btn" onclick="zoomOut()">← Zurück</button>
-        <div class="panel-content">
-            <h2>CIA Files</h2>
-            <p class="panel-subtitle">Declassified</p>
-            <p>Operation Mockingbird. Operation Northwoods. COINTELPRO. Die freigegebenen Akten zeigen: Was gestern Verschwörungstheorie war, ist heute Geschichte.</p>
-            <a href="#" class="panel-cta">Episode anhören →</a>
-        </div>
-    </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
