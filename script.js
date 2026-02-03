@@ -1,8 +1,8 @@
 // === GanzKurz Landing Page Scripts ===
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Hero image carousel with cursor reveal
-    initHeroCarousel();
+    // 3D Desk Parallax Engine
+    initDeskParallax();
     
     // Smooth reveal animations on scroll
     initScrollAnimations();
@@ -10,79 +10,72 @@ document.addEventListener('DOMContentLoaded', () => {
     // Form handling
     initNotifyForm();
     
-    // Parallax effects
+    // Scroll-based parallax for hero section
     initParallax();
 });
 
-// === Hero Image Carousel with Cursor Reveal ===
-function initHeroCarousel() {
-    const hero = document.getElementById('hero');
-    if (!hero) return;
+// === 3D DESK PARALLAX ENGINE ===
+function initDeskParallax() {
+  const heroDesk = document.querySelector('.hero-desk');
+  if (!heroDesk) return;
+  
+  const layers = heroDesk.querySelectorAll('.desk-layer');
+  
+  // Mouse move handler
+  const handleMouseMove = (e) => {
+    const rect = heroDesk.getBoundingClientRect();
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
     
-    const bgCurrent = hero.querySelector('.hero-bg-current');
-    const bgNext = hero.querySelector('.hero-bg-next');
-    const bgReveal = hero.querySelector('.hero-bg-reveal');
+    // Mouse position relative to center (-1 to 1)
+    const mouseX = (e.clientX - rect.left - centerX) / centerX;
+    const mouseY = (e.clientY - rect.top - centerY) / centerY;
     
-    // Hero images array
-    const heroImages = [
-        'studio_hero.png'
-    ];
-    
-    let currentIndex = 0;
-    const intervalTime = 10000; // 10 seconds
-    
-    // Set initial images
-    bgCurrent.style.backgroundImage = `url('${heroImages[0]}')`;
-    bgNext.style.backgroundImage = `url('${heroImages[1]}')`;
-    bgReveal.style.backgroundImage = `url('${heroImages[1]}')`;
-    
-    // Cursor tracking for reveal effect
-    hero.addEventListener('mousemove', (e) => {
-        const rect = hero.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        
-        hero.style.setProperty('--mouse-x', `${x}%`);
-        hero.style.setProperty('--mouse-y', `${y}%`);
+    layers.forEach(layer => {
+      const depth = parseFloat(layer.dataset.depth) || 0.1;
+      const moveX = mouseX * depth * 50; // Max 50px movement
+      const moveY = mouseY * depth * 50;
+      
+      layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
     });
-    
-    // Image transition function
-    function transitionToNext() {
-        const nextIndex = (currentIndex + 1) % heroImages.length;
-        const afterNextIndex = (nextIndex + 1) % heroImages.length;
-        
-        // Fade transition
-        bgCurrent.style.opacity = '0';
-        bgNext.style.opacity = '1';
-        bgNext.style.zIndex = '1';
-        bgCurrent.style.zIndex = '0';
-        
-        // After transition, swap roles
-        setTimeout(() => {
-            currentIndex = nextIndex;
-            
-            // Swap the elements' classes/roles
-            bgCurrent.style.backgroundImage = `url('${heroImages[nextIndex]}')`;
-            bgCurrent.style.opacity = '1';
-            bgCurrent.style.zIndex = '1';
-            
-            bgNext.style.backgroundImage = `url('${heroImages[afterNextIndex]}')`;
-            bgNext.style.opacity = '0';
-            bgNext.style.zIndex = '0';
-            
-            // Update reveal to show next image
-            bgReveal.style.backgroundImage = `url('${heroImages[afterNextIndex]}')`;
-        }, 1500);
+  };
+  
+  // Throttle for performance
+  let ticking = false;
+  heroDesk.addEventListener('mousemove', (e) => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        handleMouseMove(e);
+        ticking = false;
+      });
+      ticking = true;
     }
-    
-    // Start carousel
-    setInterval(transitionToNext, intervalTime);
-    
-    // Preload images
-    heroImages.forEach(src => {
-        const img = new Image();
-        img.src = src;
+  });
+  
+  // Reset on mouse leave
+  heroDesk.addEventListener('mouseleave', () => {
+    layers.forEach(layer => {
+      layer.style.transform = 'translate(0, 0)';
     });
+  });
+  
+  // Mobile: Gyroscope support (optional)
+  if (window.DeviceOrientationEvent && 'ontouchstart' in window) {
+    window.addEventListener('deviceorientation', (e) => {
+      if (e.gamma === null || e.beta === null) return;
+      
+      const tiltX = Math.max(-1, Math.min(1, e.gamma / 30));
+      const tiltY = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
+      
+      layers.forEach(layer => {
+        const depth = parseFloat(layer.dataset.depth) || 0.1;
+        const moveX = tiltX * depth * 30;
+        const moveY = tiltY * depth * 30;
+        
+        layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      });
+    });
+  }
 }
 
 // === Scroll Animations ===
@@ -115,6 +108,7 @@ function initScrollAnimations() {
 // === Notify Form ===
 function initNotifyForm() {
     const form = document.getElementById('notifyForm');
+    if (!form) return;
     
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -151,22 +145,19 @@ function initNotifyForm() {
     });
 }
 
-// === Parallax Effect ===
+// === Parallax Effect (Scroll-based) ===
 function initParallax() {
-    const hero = document.querySelector('.hero');
+    const heroDesk = document.querySelector('.hero-desk');
     
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         const rate = scrolled * 0.3;
         
-        if (hero) {
-            hero.style.transform = `translateY(${rate}px)`;
+        if (heroDesk) {
+            heroDesk.style.transform = `translateY(${rate}px)`;
         }
     });
 }
-
-// === Cursor Glow Effect (disabled - using hero reveal instead) ===
-// function initCursorGlow() { ... }
 
 // === Redacted Text Glitch Effect ===
 const redactedElements = document.querySelectorAll('.redacted');
@@ -248,3 +239,76 @@ Coming Soon.
 'font-size: 24px; font-weight: bold; color: #c9a227;',
 'font-size: 14px; color: #888;'
 );
+
+// === LEGACY: Hero Image Carousel (disabled - replaced by 3D Desk) ===
+/*
+function initHeroCarousel() {
+    const hero = document.getElementById('hero');
+    if (!hero) return;
+    
+    const bgCurrent = hero.querySelector('.hero-bg-current');
+    const bgNext = hero.querySelector('.hero-bg-next');
+    const bgReveal = hero.querySelector('.hero-bg-reveal');
+    
+    // Hero images array
+    const heroImages = [
+        'studio_hero.png'
+    ];
+    
+    let currentIndex = 0;
+    const intervalTime = 10000; // 10 seconds
+    
+    // Set initial images
+    bgCurrent.style.backgroundImage = `url('${heroImages[0]}')`;
+    bgNext.style.backgroundImage = `url('${heroImages[1]}')`;
+    bgReveal.style.backgroundImage = `url('${heroImages[1]}')`;
+    
+    // Cursor tracking for reveal effect
+    hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        
+        hero.style.setProperty('--mouse-x', `${x}%`);
+        hero.style.setProperty('--mouse-y', `${y}%`);
+    });
+    
+    // Image transition function
+    function transitionToNext() {
+        const nextIndex = (currentIndex + 1) % heroImages.length;
+        const afterNextIndex = (nextIndex + 1) % heroImages.length;
+        
+        // Fade transition
+        bgCurrent.style.opacity = '0';
+        bgNext.style.opacity = '1';
+        bgNext.style.zIndex = '1';
+        bgCurrent.style.zIndex = '0';
+        
+        // After transition, swap roles
+        setTimeout(() => {
+            currentIndex = nextIndex;
+            
+            // Swap the elements' classes/roles
+            bgCurrent.style.backgroundImage = `url('${heroImages[nextIndex]}')`;
+            bgCurrent.style.opacity = '1';
+            bgCurrent.style.zIndex = '1';
+            
+            bgNext.style.backgroundImage = `url('${heroImages[afterNextIndex]}')`;
+            bgNext.style.opacity = '0';
+            bgNext.style.zIndex = '0';
+            
+            // Update reveal to show next image
+            bgReveal.style.backgroundImage = `url('${heroImages[afterNextIndex]}')`;
+        }, 1500);
+    }
+    
+    // Start carousel
+    setInterval(transitionToNext, intervalTime);
+    
+    // Preload images
+    heroImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+}
+*/

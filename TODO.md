@@ -114,34 +114,23 @@ Draufsicht auf einen investigativen Schreibtisch. Dokumente, Fotos, Notizen vers
 
 ## Phase 4: JavaScript Interaktion 🔧
 
-- [ ] **Parallax Engine**
-  ```javascript
-  // Mausbewegung tracken
-  document.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 2;
-    const y = (e.clientY / window.innerHeight - 0.5) * 2;
-    
-    document.querySelectorAll('.desk-layer').forEach(layer => {
-      const depth = layer.dataset.depth;
-      const moveX = x * depth * 50; // px
-      const moveY = y * depth * 50;
-      layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
-    });
-  });
-  ```
+- [x] **Parallax Engine** ✅
+  - requestAnimationFrame für smooth Performance
+  - Mouse-relative Position (-1 bis 1)
+  - Depth-basierte Layer-Bewegung (max 50px)
+  - Throttled mit ticking-Flag
 
-- [ ] **Touch Support für Mobile**
-  - Gyroscope API falls verfügbar
-  - Oder: Finger-Drag für Parallax
-  - Fallback: Statisch oder Auto-Animation
+- [x] **Touch Support für Mobile** ✅
+  - Gyroscope API (DeviceOrientationEvent)
+  - Tilt-basierte Parallax (gamma/beta)
+  - Max 30px Bewegung auf Mobile
 
-- [ ] **Hover-Effekte**
-  - Items anheben
-  - Optional: Item-Info anzeigen (Tooltip)
+- [x] **Hover-Effekte** ✅
+  - Bereits in CSS implementiert (translateY, scale, box-shadow)
+  - z-index: 100 beim Hover
 
-- [ ] **Scroll-basierte Animation (optional)**
-  - Beim Scrollen: Items "fliegen weg"
-  - Oder: Zoom-out Effekt
+- [x] **Mouse Leave Reset** ✅
+  - Smooth zurück zu translate(0, 0)
 
 ---
 
