@@ -3,26 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GanzKurz — Die Wahrheit braucht Zeit</title>
+    <title>GanzKurz — Ein Podcast mit Fragen die bleiben</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main>
-        <div class="flip-container">
-            <div class="flipper">
-                <div class="front">
-                    <h1 class="logo"><span class="ganz">Ganz</span><span class="kurz">Kurz</span></h1>
-                </div>
-                <div class="back">
-                    <h1 class="topic" id="topic">MK Ultra</h1>
-                </div>
+    <!-- Hero Section with Logo -->
+    <section class="hero">
+        <div class="logo-container" id="logo">
+            <h1 class="logo"><span class="ganz">Ganz</span><span class="kurz">Kurz</span></h1>
+            <p class="tagline">Ein Podcast mit Fragen die bleiben</p>
+        </div>
+        <div class="scroll-hint">↓</div>
+    </section>
+    
+    <!-- Content Section (revealed after scroll) -->
+    <section class="content">
+        <div class="content-inner">
+            <h2>Was wäre, wenn alles was du weißt nur die halbe Geschichte ist?</h2>
+            <p>Wir graben dort, wo andere aufhören zu fragen. MK Ultra, Epstein, 9/11 — nicht als Verschwörungstheorien, sondern als dokumentierte Geschichte mit offenen Enden.</p>
+            <p>Zwei Freunde. Ein Mikrofon. Keine Angst vor unbequemen Fragen.</p>
+            <div class="hosts">
+                <span class="host">Alex</span>
+                <span class="ampersand">&</span>
+                <span class="host">Fabian</span>
             </div>
         </div>
-        <p class="tagline">Ein Podcast mit Fragen die bleiben</p>
-    </main>
+    </section>
+    
     <script src="script.js"></script>
 </body>
 </html>

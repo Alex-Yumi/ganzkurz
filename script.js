@@ -1,32 +1,55 @@
 /* ============================================
-   GanzKurz — 3D Flip Animation
+   GanzKurz — Netflix-style Scroll Zoom
    ============================================ */
 
-const topics = ['MK Ultra', 'Epstein', '9/11', 'CIA Files'];
-let currentTopic = 0;
+const logo = document.getElementById('logo');
+const content = document.querySelector('.content-inner');
+const scrollHint = document.querySelector('.scroll-hint');
 
-const flipper = document.querySelector('.flipper');
-const topicEl = document.getElementById('topic');
-
-function flipToTopic() {
-    // Set the topic text before flipping
-    topicEl.textContent = topics[currentTopic];
+// Scroll handler for Netflix zoom effect
+function handleScroll() {
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
     
-    // Flip to show topic
-    flipper.classList.add('flipped');
+    // Calculate progress (0 to 1) based on scroll
+    const progress = Math.min(scrollY / (windowHeight * 0.8), 1);
     
-    // After 3 seconds, flip back to logo
-    setTimeout(() => {
-        flipper.classList.remove('flipped');
-        
-        // Move to next topic for next flip
-        currentTopic = (currentTopic + 1) % topics.length;
-    }, 3000);
+    // Logo: Scale up (1 to 3) and fade out
+    const scale = 1 + (progress * 2);
+    const opacity = 1 - progress;
+    
+    logo.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    logo.style.opacity = opacity;
+    
+    // Hide scroll hint as user scrolls
+    scrollHint.style.opacity = 1 - (progress * 2);
+    
+    // When logo is mostly faded, make it non-blocking
+    if (progress > 0.8) {
+        logo.style.pointerEvents = 'none';
+    } else {
+        logo.style.pointerEvents = 'auto';
+    }
+    
+    // Show content when scrolled enough
+    if (progress > 0.5) {
+        content.classList.add('visible');
+    } else {
+        content.classList.remove('visible');
+    }
 }
 
-// Start the animation cycle
-// Wait 2 seconds, then flip every 5 seconds
-setTimeout(() => {
-    flipToTopic();
-    setInterval(flipToTopic, 6000);
-}, 2000);
+// Throttle scroll for performance
+let ticking = false;
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        requestAnimationFrame(() => {
+            handleScroll();
+            ticking = false;
+        });
+        ticking = true;
+    }
+});
+
+// Initial state
+handleScroll();
