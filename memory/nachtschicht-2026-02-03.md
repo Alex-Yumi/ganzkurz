@@ -14,9 +14,9 @@
 | 4 | doc_memo.png | ✅ | 00:00 | 00:02 |
 | 5 | doc_envelope.png | ✅ | 00:02 | 00:02 |
 | 6 | photo_epstein.png | ✅ | - | - |
-| 7 | photo_mkultra.png | ⏳ | - | - |
-| 8 | photo_911.png | ⏳ | - | - |
-| 9 | prop_coffee.png | ⏳ | - | - |
+| 7 | photo_mkultra.png | ✅ | 00:06 | 00:06 |
+| 8 | photo_911.png | ✅ | 00:08 | 00:10 |
+| 9 | prop_coffee.png | ✅ | 00:10 | 00:11 |
 | 10 | prop_pen.png | ⏳ | - | - |
 | 11 | prop_glasses.png | ⏳ | - | - |
 | 12 | prop_postit.png | ⏳ | - | - |
@@ -59,5 +59,28 @@
 - Prompt: "A brown kraft paper manila envelope, slightly opened with visible document papers inside. Top-down perspective view at a slight angle. Vintage used look with subtle creases and wear marks on the paper. A red 'CONFIDENTIAL' rubber stamp mark on the envelope. Realistic paper texture with soft shadows creating 3D depth effect. Clean white background. Product photography style, highly detailed, photorealistic."
 - Output: ~1K resolution PNG
 - Speicherort: /root/.openclaw/workspace/ganzkurz/doc_envelope.png
+
+### 00:06 UTC - Task 7: photo_mkultra.png ✅
+- Imagen 4.0 via Gemini API (imagen-4.0-generate-001)
+- Prompt: "Vintage 1950s black and white photograph of an empty psychiatric treatment room. Old wooden restraint chair in center, medical equipment with dials and wires on metal tables, bare concrete walls, single hanging light bulb casting harsh shadows. Film noir aesthetic, high contrast, grainy vintage film look. Eerie, oppressive atmosphere. No people. Looks like a photo lying on a desk. Sepia tones, aged photograph with slight damage and creases."
+- Output: 4:3 aspect ratio PNG (1.5 MB)
+- Perfekt unheimliche Atmosphäre: Leerer Behandlungsraum, Stuhl in der Mitte, medizinische Geräte mit Kabeln, einzelne Glühbirne, verknitterte Fotoecken
+- Speicherort: /root/.openclaw/workspace/ganzkurz/photo_mkultra.png
+
+### 00:09 UTC - Task 8: photo_911.png ✅
+- Imagen 4.0 via Gemini API (imagen-4.0-generate-001)
+- Prompt: "New York City skyline at dusk from across the Hudson River. The Tribute in Light memorial - two powerful vertical beams of blue-white light reaching into the dark evening sky. Melancholic reverent atmosphere. Soft amber city lights reflecting on calm water. Vintage photograph aesthetic with slight film grain and faded colors. Memorial mood. No people. Cinematic 35mm film photography."
+- Output: 1280x896 PNG (1.5 MB) - 4:3 aspect ratio
+- Motiv: NYC Skyline bei Abenddämmerung mit den zwei Gedenklichtern (Tribute in Light Memorial)
+- Respektvoll, würdevoll - keine Zerstörung, nur Erinnerung
+- Speicherort: /root/.openclaw/workspace/ganzkurz/photo_911.png
+
+### 00:11 UTC - Task 9: prop_coffee.png ✅
+- Imagen 4.0 via Gemini API (imagen-4.0-generate-001)
+- Prompt: "Top-down view photograph of a white ceramic coffee mug half filled with black coffee on neutral background, photorealistic, soft shadow, studio lighting"
+- Output: 1024x1024 PNG (789 KB) - Quadratisches Format
+- Motiv: Weiße Keramiktasse von oben mit schwarzem Kaffee
+- Sauberer neutraler grauer Hintergrund, perfekter weicher Schatten
+- Speicherort: /root/.openclaw/workspace/ganzkurz/prop_coffee.png
 
 ---
