@@ -10,17 +10,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- ============================================
-         FIXED LAYERS (Logo, Stripes, Intro Text)
-         ============================================ -->
+    <!-- Hero Section with Logo -->
+    <section class="hero">
+        <div class="logo-container" id="logo">
+            <h1 class="logo"><span class="ganz">Ganz</span><span class="kurz">Kurz</span></h1>
+            <p class="tagline">Ein Podcast mit Fragen die bleiben</p>
+        </div>
+        <div class="scroll-hint">↓</div>
+    </section>
     
-    <!-- Logo Layer -->
-    <div class="logo-container" id="logo">
-        <h1 class="logo"><span class="ganz">Ganz</span><span class="kurz">Kurz</span></h1>
-        <p class="tagline">Ein Podcast mit Fragen die bleiben</p>
-    </div>
-    
-    <!-- Netflix Stripes Layer -->
+    <!-- Netflix-style Stripes Transition -->
     <div class="stripes-container" id="stripes">
         <div class="stripe stripe-1"></div>
         <div class="stripe stripe-2"></div>
@@ -30,98 +29,74 @@
         <div class="stripe stripe-6"></div>
     </div>
     
-    <!-- Intro Text Layer -->
-    <div class="intro-layer" id="intro">
-        <div class="intro-content">
-            <h2>Was wäre, wenn alles was du weißt<br><em>nur die halbe Geschichte ist?</em></h2>
+    <!-- Content Section (revealed after stripes) -->
+    <section class="content">
+        <div class="content-inner" id="content">
+            <h2>Was wäre, wenn alles was du weißt nur die halbe Geschichte ist?</h2>
             <p>Wir graben dort, wo andere aufhören zu fragen. MK Ultra, Epstein, 9/11 — nicht als Verschwörungstheorien, sondern als dokumentierte Geschichte mit offenen Enden.</p>
-            <div class="topics">
-                <span>MK Ultra</span>
-                <span>·</span>
-                <span>Epstein</span>
-                <span>·</span>
-                <span>9/11</span>
-                <span>·</span>
-                <span>CIA Files</span>
+            <p>Zwei Freunde. Ein Mikrofon. Keine Angst vor unbequemen Fragen.</p>
+            <div class="hosts">
+                <span class="host">Alex</span>
+                <span class="ampersand">&</span>
+                <span class="host">Fabian</span>
             </div>
         </div>
-    </div>
+    </section>
     
-    <!-- Gold Curtain Layer -->
-    <div class="curtain-layer" id="curtain">
-        <div class="curtain curtain-left"></div>
-        <div class="curtain curtain-right"></div>
-    </div>
-    
-    <!-- Portraits Layer -->
-    <div class="portraits-layer" id="portraits">
-        <div class="portrait portrait-left">
-            <img src="host-alex.png" alt="Alex">
-            <span class="portrait-name">Alex</span>
-        </div>
-        <div class="portraits-ampersand">&</div>
-        <div class="portrait portrait-right">
-            <img src="host-fabian.png" alt="Fabian">
-            <span class="portrait-name">Fabian</span>
-        </div>
+    <!-- ============================================
+         NEW: Gold Curtain Transition
+         ============================================ -->
+    <div class="curtain-container" id="curtain">
+        <div class="curtain-left"></div>
+        <div class="curtain-right"></div>
     </div>
     
     <!-- ============================================
-         SCROLL SPACER (creates scroll distance)
+         NEW: Portraits Section
          ============================================ -->
-    <div class="scroll-spacer"></div>
-    
-    <!-- ============================================
-         SCROLLABLE SECTIONS (after fixed layers)
-         ============================================ -->
-    
-    <!-- Bios Section -->
-    <section class="section section-bios" id="bios">
-        <div class="bio bio-alex">
-            <div class="bio-portrait">
+    <section class="portraits" id="portraits">
+        <div class="portraits-inner">
+            <div class="portrait">
                 <img src="host-alex.png" alt="Alex">
+                <span class="portrait-name">Alex</span>
             </div>
-            <div class="bio-content">
+            <div class="portraits-amp">&</div>
+            <div class="portrait">
+                <img src="host-fabian.png" alt="Fabian">
+                <span class="portrait-name">Fabian</span>
+            </div>
+        </div>
+        <p class="portraits-tagline">Zwei Freunde. Ein Mikrofon. Keine Angst vor unbequemen Fragen.</p>
+    </section>
+    
+    <!-- ============================================
+         NEW: Bios Section
+         ============================================ -->
+    <section class="bios" id="bios">
+        <div class="bio">
+            <div class="bio-img"><img src="host-alex.png" alt="Alex"></div>
+            <div class="bio-text">
                 <h3>Alex</h3>
                 <p>Hinterfragt alles — von offiziellen Narrativen bis zur eigenen Überzeugung. Bringt die unbequemen Fragen, die andere nicht stellen wollen.</p>
-                <div class="bio-traits">
-                    <span>Skeptiker</span>
-                    <span>Rechercheur</span>
-                    <span>Storyteller</span>
-                </div>
             </div>
         </div>
-        
-        <div class="bio bio-fabian">
-            <div class="bio-content">
+        <div class="bio bio-reverse">
+            <div class="bio-img"><img src="host-fabian.png" alt="Fabian"></div>
+            <div class="bio-text">
                 <h3>Fabian</h3>
                 <p>Der analytische Kopf im Team. Sortiert Fakten von Fiktion und findet die Verbindungen, die andere übersehen.</p>
-                <div class="bio-traits">
-                    <span>Analytiker</span>
-                    <span>Faktenchecker</span>
-                    <span>Devil's Advocate</span>
-                </div>
-            </div>
-            <div class="bio-portrait">
-                <img src="host-fabian.png" alt="Fabian">
             </div>
         </div>
     </section>
     
-    <!-- CTA Section -->
-    <section class="section section-cta" id="cta">
-        <p class="cta-subtitle">Der Podcast startet bald.</p>
-        <h2 class="cta-headline">Bist du bereit für die ganze Geschichte?</h2>
-        <a href="#" class="cta-button">Coming Soon</a>
+    <!-- ============================================
+         NEW: CTA Section
+         ============================================ -->
+    <section class="cta" id="cta">
+        <p class="cta-sub">Der Podcast startet bald.</p>
+        <h2>Bist du bereit für die ganze Geschichte?</h2>
+        <a href="#" class="cta-btn">Coming Soon</a>
     </section>
-    
-    <!-- Progress Bar -->
-    <div class="progress-bar" id="progress">
-        <div class="progress-fill"></div>
-    </div>
-    
-    <!-- Scroll Hint -->
-    <div class="scroll-hint" id="scroll-hint">↓</div>
     
     <script src="script.js"></script>
 </body>

@@ -1,167 +1,117 @@
 /* ============================================
-   GanzKurz — Scroll-Driven Animation Controller
+   GanzKurz — Netflix-style Scroll Transition
+   Extended with Curtain + Portraits
    ============================================ */
 
-(function() {
-    'use strict';
+const logo = document.getElementById('logo');
+const stripes = document.getElementById('stripes');
+const content = document.getElementById('content');
+const scrollHint = document.querySelector('.scroll-hint');
+
+// NEW elements
+const curtain = document.getElementById('curtain');
+const portraits = document.getElementById('portraits');
+
+function handleScroll() {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const vh = window.innerHeight;
     
-    // Elements
-    const logo = document.getElementById('logo');
-    const stripes = document.getElementById('stripes');
-    const intro = document.getElementById('intro');
-    const curtain = document.getElementById('curtain');
-    const portraits = document.getElementById('portraits');
-    const progressFill = document.querySelector('.progress-fill');
-    const scrollHint = document.getElementById('scroll-hint');
+    // PHASE 1-3: Original transition (0 to 1.5vh)
+    const phase1Progress = Math.min(scrollY / (vh * 1.5), 1);
     
-    // Total scroll distance for fixed animations (matches CSS scroll-spacer)
-    const FIXED_SCROLL_HEIGHT = 5; // viewport heights
+    // PHASE 4-5: New transitions (1.5vh to 4vh)
+    const phase2Start = vh * 1.5;
+    const phase2End = vh * 4;
+    const phase2Progress = Math.max(0, Math.min((scrollY - phase2Start) / (phase2End - phase2Start), 1));
     
-    // Animation phases (as percentages of fixed scroll distance)
-    const PHASES = {
-        // Logo zoom: 0% - 20%
-        logoStart: 0,
-        logoEnd: 0.20,
+    // === PHASE 1: Logo zoom (0% - 35% of phase1) ===
+    if (phase1Progress < 0.35) {
+        const p = phase1Progress / 0.35;
+        const scale = 1 + (p * 2);
+        const opacity = 1 - p;
         
-        // Stripes in: 20% - 40%
-        stripesStart: 0.20,
-        stripesEnd: 0.40,
+        logo.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        logo.style.opacity = opacity;
+        logo.style.visibility = 'visible';
         
-        // Intro text: 40% - 55%
-        introStart: 0.40,
-        introEnd: 0.55,
+        stripes.className = 'stripes-container';
+        content.classList.remove('visible');
         
-        // Curtain open: 55% - 70%
-        curtainStart: 0.55,
-        curtainEnd: 0.70,
-        
-        // Portraits: 70% - 100%
-        portraitsStart: 0.70,
-        portraitsEnd: 1.0
-    };
-    
-    function lerp(start, end, t) {
-        return start + (end - start) * Math.max(0, Math.min(1, t));
+        // Hide new elements
+        if (curtain) { curtain.classList.remove('visible', 'open'); }
+        if (portraits) { portraits.classList.remove('visible'); }
     }
     
-    function handleScroll() {
-        const scrollY = window.scrollY;
-        const vh = window.innerHeight;
-        const fixedDistance = vh * FIXED_SCROLL_HEIGHT;
-        const totalHeight = document.documentElement.scrollHeight - vh;
+    // === PHASE 2: Stripes IN (35% - 55% of phase1) ===
+    else if (phase1Progress < 0.55) {
+        logo.style.opacity = 0;
+        logo.style.visibility = 'hidden';
         
-        // Progress through fixed animations (0 to 1)
-        const fixedProgress = Math.min(scrollY / fixedDistance, 1);
+        stripes.className = 'stripes-container stripes-in';
+        content.classList.remove('visible');
         
-        // Total page progress for progress bar
-        const totalProgress = scrollY / totalHeight;
-        
-        // Update progress bar
-        if (progressFill) {
-            progressFill.style.width = `${totalProgress * 100}%`;
-        }
-        
-        // Update scroll hint
-        if (scrollHint) {
-            scrollHint.style.opacity = fixedProgress < 0.1 ? 1 - (fixedProgress / 0.1) : 0;
-        }
-        
-        // === PHASE 1: Logo Zoom ===
-        if (fixedProgress <= PHASES.logoEnd) {
-            const p = fixedProgress / PHASES.logoEnd;
-            const scale = 1 + (p * 3); // Zoom from 1x to 4x
-            const opacity = 1 - p;
-            
-            logo.style.transform = `translate(-50%, -50%) scale(${scale})`;
-            logo.style.opacity = opacity;
-            logo.style.visibility = opacity > 0 ? 'visible' : 'hidden';
-            
-            // Reset everything else
-            stripes.classList.remove('stripes-in');
-            intro.classList.remove('visible');
-            curtain.classList.remove('open');
-            portraits.classList.remove('visible');
-        }
-        
-        // === PHASE 2: Stripes In ===
-        else if (fixedProgress <= PHASES.stripesEnd) {
-            logo.style.opacity = 0;
-            logo.style.visibility = 'hidden';
-            
-            stripes.classList.add('stripes-in');
-            intro.classList.remove('visible');
-            curtain.classList.remove('open');
-            portraits.classList.remove('visible');
-        }
-        
-        // === PHASE 3: Intro Text ===
-        else if (fixedProgress <= PHASES.introEnd) {
-            logo.style.opacity = 0;
-            logo.style.visibility = 'hidden';
-            
-            stripes.classList.add('stripes-in');
-            intro.classList.add('visible');
-            curtain.classList.remove('open');
-            portraits.classList.remove('visible');
-        }
-        
-        // === PHASE 4: Curtain Opens ===
-        else if (fixedProgress <= PHASES.curtainEnd) {
-            logo.style.opacity = 0;
-            logo.style.visibility = 'hidden';
-            
-            stripes.classList.add('stripes-in');
-            intro.classList.remove('visible');
-            curtain.classList.add('open');
-            portraits.classList.add('visible');
-        }
-        
-        // === PHASE 5: Portraits Stay ===
-        else {
-            logo.style.opacity = 0;
-            logo.style.visibility = 'hidden';
-            
-            stripes.classList.add('stripes-in');
-            intro.classList.remove('visible');
-            curtain.classList.add('open');
-            portraits.classList.add('visible');
-        }
-        
-        // Hide fixed layers when we've scrolled past them
-        const pastFixed = scrollY > fixedDistance;
-        
-        if (pastFixed) {
-            logo.style.display = 'none';
-            stripes.style.display = 'none';
-            intro.style.display = 'none';
-            curtain.style.display = 'none';
-            portraits.style.display = 'none';
-        } else {
-            logo.style.display = '';
-            stripes.style.display = '';
-            intro.style.display = '';
-            curtain.style.display = '';
-            portraits.style.display = '';
-        }
+        if (curtain) { curtain.classList.remove('visible', 'open'); }
+        if (portraits) { portraits.classList.remove('visible'); }
     }
     
-    // Throttled scroll handler for performance
-    let ticking = false;
-    
-    function onScroll() {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                handleScroll();
-                ticking = false;
-            });
-            ticking = true;
-        }
+    // === PHASE 3: Content appears (55%+ of phase1, before phase2 starts) ===
+    else if (phase2Progress < 0.2) {
+        logo.style.opacity = 0;
+        logo.style.visibility = 'hidden';
+        
+        stripes.className = 'stripes-container stripes-in';
+        content.classList.add('visible');
+        
+        if (curtain) { curtain.classList.remove('visible', 'open'); }
+        if (portraits) { portraits.classList.remove('visible'); }
     }
     
-    // Initialize
-    window.addEventListener('scroll', onScroll, { passive: true });
-    handleScroll();
+    // === PHASE 4: Gold curtain appears and opens (20% - 50% of phase2) ===
+    else if (phase2Progress < 0.5) {
+        logo.style.opacity = 0;
+        logo.style.visibility = 'hidden';
+        
+        stripes.className = 'stripes-container stripes-in';
+        content.classList.remove('visible');
+        
+        if (curtain) {
+            curtain.classList.add('visible');
+            if (phase2Progress > 0.35) {
+                curtain.classList.add('open');
+            } else {
+                curtain.classList.remove('open');
+            }
+        }
+        if (portraits) { portraits.classList.add('visible'); }
+    }
     
-    console.log('🎙️ GanzKurz initialized');
+    // === PHASE 5: Portraits revealed (50%+ of phase2) ===
+    else {
+        logo.style.opacity = 0;
+        logo.style.visibility = 'hidden';
+        
+        stripes.className = 'stripes-container stripes-in';
+        content.classList.remove('visible');
+        
+        if (curtain) { curtain.classList.add('visible', 'open'); }
+        if (portraits) { portraits.classList.add('visible'); }
+    }
     
-})();
+    // Hide all fixed layers when past animations (scrolled to bios section)
+    const pastFixed = scrollY > vh * 4.5;
+    
+    [logo, stripes, document.querySelector('.content'), curtain, portraits].forEach(el => {
+        if (el) {
+            el.style.display = pastFixed ? 'none' : '';
+        }
+    });
+    
+    // Scroll hint
+    if (scrollHint) {
+        scrollHint.style.opacity = Math.max(0, 1 - phase1Progress * 4);
+    }
+}
+
+window.addEventListener('scroll', handleScroll, { passive: true });
+document.addEventListener('DOMContentLoaded', handleScroll);
+handleScroll();

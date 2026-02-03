@@ -1,7 +1,3 @@
-/* ============================================
-   GanzKurz — Scroll-Driven Animation
-   ============================================ */
-
 * {
     margin: 0;
     padding: 0;
@@ -11,12 +7,9 @@
 :root {
     --navy: #0d1b2a;
     --navy-dark: #060d14;
-    --black: #000000;
     --gold: #c9a227;
-    --gold-dark: #a68620;
     --white: #ffffff;
-    --gray: rgba(255, 255, 255, 0.7);
-    --gray-dark: rgba(255, 255, 255, 0.4);
+    --text-muted: rgba(255, 255, 255, 0.7);
 }
 
 html {
@@ -27,21 +20,29 @@ body {
     background: var(--navy);
     font-family: 'Inter', -apple-system, sans-serif;
     color: var(--white);
-    overflow-x: hidden;
+    min-height: 500vh; /* Extended for more scroll phases */
 }
 
 /* ============================================
-   LOGO LAYER (fixed, zooms out)
+   Hero Section
    ============================================ */
 
+.hero {
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
 .logo-container {
+    text-align: center;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(1);
     z-index: 100;
-    text-align: center;
-    pointer-events: none;
     will-change: transform, opacity;
 }
 
@@ -53,375 +54,32 @@ body {
     line-height: 1;
 }
 
-.ganz { color: var(--white); }
-.kurz { color: var(--gold); }
+.ganz {
+    color: var(--white);
+}
+
+.kurz {
+    color: var(--gold);
+}
 
 .tagline {
     margin-top: 1.5rem;
     font-size: clamp(0.75rem, 2.5vw, 1.25rem);
     font-weight: 400;
-    color: var(--gray);
+    color: var(--text-muted);
     letter-spacing: 0.15em;
     text-transform: uppercase;
 }
 
-/* ============================================
-   STRIPES LAYER (Netflix transition)
-   ============================================ */
-
-.stripes-container {
-    position: fixed;
-    inset: 0;
-    z-index: 90;
-    display: flex;
-    flex-direction: column;
-    pointer-events: none;
-}
-
-.stripe {
-    flex: 1;
-    background: var(--black);
-    transform: scaleX(0);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.stripe:nth-child(odd) { transform-origin: left center; }
-.stripe:nth-child(even) { transform-origin: right center; }
-
-.stripe-1 { transition-delay: 0.00s; }
-.stripe-2 { transition-delay: 0.08s; }
-.stripe-3 { transition-delay: 0.16s; }
-.stripe-4 { transition-delay: 0.24s; }
-.stripe-5 { transition-delay: 0.32s; }
-.stripe-6 { transition-delay: 0.40s; }
-
-.stripes-container.stripes-in .stripe {
-    transform: scaleX(1);
-}
-
-/* ============================================
-   INTRO TEXT LAYER (fades in over black)
-   ============================================ */
-
-.intro-layer {
-    position: fixed;
-    inset: 0;
-    z-index: 95;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-}
-
-.intro-layer.visible {
-    opacity: 1;
-}
-
-.intro-content {
-    max-width: 750px;
-    text-align: center;
-}
-
-.intro-content h2 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.5rem, 5vw, 2.75rem);
-    font-weight: 400;
-    line-height: 1.4;
-    margin-bottom: 1.5rem;
-}
-
-.intro-content h2 em {
-    color: var(--gold);
-    font-style: italic;
-}
-
-.intro-content p {
-    font-size: clamp(1rem, 2.5vw, 1.125rem);
-    line-height: 1.8;
-    color: var(--gray);
-    margin-bottom: 2rem;
-}
-
-.topics {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
-    font-size: 0.875rem;
-    color: var(--gray-dark);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-.topics span:not(:nth-child(odd)) {
-    color: var(--gold);
-}
-
-/* ============================================
-   GOLD CURTAIN LAYER (reveals portraits)
-   ============================================ */
-
-.curtain-layer {
-    position: fixed;
-    inset: 0;
-    z-index: 85;
-    display: flex;
-    pointer-events: none;
-}
-
-.curtain {
-    flex: 1;
-    background: var(--gold);
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.curtain-left {
-    transform-origin: left center;
-}
-
-.curtain-right {
-    transform-origin: right center;
-}
-
-.curtain-layer.open .curtain {
-    transform: scaleX(0);
-}
-
-/* ============================================
-   PORTRAITS LAYER (revealed by curtain)
-   ============================================ */
-
-.portraits-layer {
-    position: fixed;
-    inset: 0;
-    z-index: 80;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(1rem, 5vw, 4rem);
-    padding: 2rem;
-    background: var(--navy-dark);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.portraits-layer.visible {
-    opacity: 1;
-}
-
-.portrait {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    transform: translateY(30px);
-    opacity: 0;
-    transition: transform 0.8s ease, opacity 0.8s ease;
-}
-
-.portraits-layer.visible .portrait {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.portrait-left { transition-delay: 0.2s; }
-.portrait-right { transition-delay: 0.4s; }
-
-.portrait img {
-    width: clamp(150px, 25vw, 280px);
-    height: auto;
-    border: 3px solid var(--gold);
-    border-radius: 4px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-}
-
-.portrait-name {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.25rem, 3vw, 2rem);
-    font-weight: 700;
-    color: var(--gold);
-}
-
-.portraits-ampersand {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(2rem, 6vw, 5rem);
-    color: var(--gold);
-    opacity: 0.5;
-    transform: translateY(30px);
-    transition: transform 0.8s ease 0.3s, opacity 0.8s ease 0.3s;
-}
-
-.portraits-layer.visible .portraits-ampersand {
-    transform: translateY(0);
-    opacity: 0.5;
-}
-
-/* ============================================
-   SCROLL SPACER (creates scroll distance)
-   ============================================ */
-
-.scroll-spacer {
-    height: 500vh; /* 5 viewport heights for all fixed animations */
-}
-
-/* ============================================
-   SCROLLABLE SECTIONS (after fixed layers)
-   ============================================ */
-
-.section {
-    position: relative;
-    z-index: 200;
-    padding: clamp(4rem, 10vh, 8rem) clamp(1.5rem, 5vw, 4rem);
-}
-
-/* --- BIOS SECTION --- */
-
-.section-bios {
-    background: var(--black);
-}
-
-.bio {
-    display: flex;
-    align-items: center;
-    gap: clamp(2rem, 5vw, 4rem);
-    max-width: 1000px;
-    margin: 0 auto 6rem;
-}
-
-.bio:last-child {
-    margin-bottom: 0;
-}
-
-.bio-portrait {
-    flex-shrink: 0;
-}
-
-.bio-portrait img {
-    width: clamp(120px, 20vw, 200px);
-    height: clamp(120px, 20vw, 200px);
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid var(--gold);
-}
-
-.bio-content h3 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    color: var(--gold);
-    margin-bottom: 1rem;
-}
-
-.bio-content p {
-    font-size: clamp(1rem, 2vw, 1.125rem);
-    line-height: 1.8;
-    color: var(--gray);
-    margin-bottom: 1.5rem;
-}
-
-.bio-traits {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-}
-
-.bio-traits span {
-    padding: 0.5rem 1rem;
-    background: var(--navy);
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-}
-
-/* Fabian bio - reversed layout */
-.bio-fabian {
-    flex-direction: row-reverse;
-    text-align: right;
-}
-
-.bio-fabian .bio-traits {
-    justify-content: flex-end;
-}
-
-/* --- CTA SECTION --- */
-
-.section-cta {
-    background: linear-gradient(to bottom, var(--black), var(--navy-dark));
-    text-align: center;
-    padding-top: 8rem;
-    padding-bottom: 8rem;
-}
-
-.cta-subtitle {
-    font-size: 0.875rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gray-dark);
-    margin-bottom: 1rem;
-}
-
-.cta-headline {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.75rem, 5vw, 3.5rem);
-    font-weight: 400;
-    margin-bottom: 3rem;
-}
-
-.cta-button {
-    display: inline-block;
-    padding: 1.25rem 3rem;
-    border: 2px solid var(--gold);
-    color: var(--gold);
-    text-decoration: none;
-    font-size: 0.875rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-}
-
-.cta-button:hover {
-    background: var(--gold);
-    color: var(--black);
-}
-
-/* ============================================
-   PROGRESS BAR
-   ============================================ */
-
-.progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.1);
-    z-index: 1000;
-}
-
-.progress-fill {
-    height: 100%;
-    width: 0%;
-    background: var(--gold);
-    transition: width 0.05s linear;
-}
-
-/* ============================================
-   SCROLL HINT
-   ============================================ */
-
 .scroll-hint {
-    position: fixed;
+    position: absolute;
     bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
     font-size: 1.5rem;
-    color: var(--gray);
-    z-index: 150;
+    color: var(--text-muted);
     animation: bounce 2s infinite;
-    transition: opacity 0.3s ease;
+    z-index: 50;
 }
 
 @keyframes bounce {
@@ -430,38 +88,357 @@ body {
 }
 
 /* ============================================
-   RESPONSIVE
+   Netflix-style Stripes
+   ============================================ */
+
+.stripes-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+}
+
+.stripe {
+    flex: 1;
+    background: #000000;
+    transform: scaleX(0);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Alternating origins */
+.stripe:nth-child(odd) { transform-origin: left center; }
+.stripe:nth-child(even) { transform-origin: right center; }
+
+/* Staggered delays */
+.stripe-1 { transition-delay: 0.0s; }
+.stripe-2 { transition-delay: 0.08s; }
+.stripe-3 { transition-delay: 0.16s; }
+.stripe-4 { transition-delay: 0.24s; }
+.stripe-5 { transition-delay: 0.32s; }
+.stripe-6 { transition-delay: 0.4s; }
+
+/* Stripes visible */
+.stripes-container.stripes-in .stripe {
+    transform: scaleX(1);
+}
+
+/* Stripes out - flip origins */
+.stripes-container.stripes-out .stripe:nth-child(odd) { transform-origin: right center; }
+.stripes-container.stripes-out .stripe:nth-child(even) { transform-origin: left center; }
+.stripes-container.stripes-out .stripe {
+    transform: scaleX(0);
+}
+
+/* ============================================
+   Content Section
+   ============================================ */
+
+.content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 95;
+    pointer-events: none;
+}
+
+.content-inner {
+    max-width: 700px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    pointer-events: auto;
+}
+
+.content-inner.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.content h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+}
+
+.content p {
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+}
+
+.hosts {
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.host {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.ampersand {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ============================================
+   Responsive
    ============================================ */
 
 @media (max-width: 768px) {
-    .portraits-layer {
+    .tagline {
+        letter-spacing: 0.1em;
+        padding: 0 1rem;
+    }
+    
+    .content {
+        padding: 3rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: clamp(2.5rem, 16vw, 4rem);
+    }
+}
+
+/* ============================================
+   NEW: Gold Curtain Transition
+   ============================================ */
+
+.curtain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 85;
+    display: flex;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.curtain-container.visible {
+    opacity: 1;
+}
+
+.curtain-left,
+.curtain-right {
+    flex: 1;
+    background: var(--gold);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curtain-left { transform-origin: left; }
+.curtain-right { transform-origin: right; }
+
+.curtain-container.open .curtain-left,
+.curtain-container.open .curtain-right {
+    transform: scaleX(0);
+}
+
+/* ============================================
+   NEW: Portraits Section
+   ============================================ */
+
+.portraits {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 80;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--navy-dark);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.portraits.visible {
+    opacity: 1;
+}
+
+.portraits-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.5rem, 5vw, 4rem);
+}
+
+.portrait {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.portraits.visible .portrait {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.portraits.visible .portrait:nth-child(1) { transition-delay: 0.2s; }
+.portraits.visible .portrait:nth-child(3) { transition-delay: 0.4s; }
+
+.portrait img {
+    width: clamp(140px, 22vw, 260px);
+    border: 3px solid var(--gold);
+    border-radius: 4px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.portrait-name {
+    display: block;
+    margin-top: 1rem;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.portraits-amp {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: var(--gold);
+    opacity: 0.5;
+}
+
+.portraits-tagline {
+    margin-top: 2rem;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+/* ============================================
+   NEW: Bios Section (scrollable, after fixed)
+   ============================================ */
+
+.bios {
+    position: relative;
+    z-index: 200;
+    background: #000;
+    padding: 6rem 2rem;
+}
+
+.bio {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 900px;
+    margin: 0 auto 5rem;
+}
+
+.bio:last-child { margin-bottom: 0; }
+
+.bio-reverse { flex-direction: row-reverse; text-align: right; }
+
+.bio-img img {
+    width: clamp(100px, 18vw, 180px);
+    height: clamp(100px, 18vw, 180px);
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+}
+
+.bio-text h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+}
+
+.bio-text p {
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+
+/* ============================================
+   NEW: CTA Section
+   ============================================ */
+
+.cta {
+    position: relative;
+    z-index: 200;
+    background: linear-gradient(to bottom, #000, var(--navy-dark));
+    padding: 6rem 2rem;
+    text-align: center;
+}
+
+.cta-sub {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.cta h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    margin-bottom: 2.5rem;
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+    background: var(--gold);
+    color: #000;
+}
+
+/* ============================================
+   NEW: Responsive for new sections
+   ============================================ */
+
+@media (max-width: 768px) {
+    .portraits-inner {
         flex-direction: column;
-        gap: 2rem;
     }
     
-    .portraits-ampersand {
-        transform: rotate(90deg) translateX(0);
+    .portraits-amp {
+        transform: rotate(90deg);
     }
     
-    .portraits-layer.visible .portraits-ampersand {
-        transform: rotate(90deg) translateX(0);
-    }
-    
-    .bio {
+    .bio, .bio-reverse {
         flex-direction: column;
         text-align: center;
-    }
-    
-    .bio-fabian {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .bio-fabian .bio-traits {
-        justify-content: center;
-    }
-    
-    .bio-traits {
-        justify-content: center;
     }
 }
