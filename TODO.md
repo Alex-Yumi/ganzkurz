@@ -19,7 +19,7 @@ Draufsicht auf einen investigativen Schreibtisch. Dokumente, Fotos, Notizen vers
 - [x] **doc_envelope.png** - Brauner Umschlag, leicht geöffnet
 
 ### Fotos
-- [ ] **photo_epstein.png** - Symbolbild für Epstein-Thema (Insel/Villa Silhouette)
+- [x] **photo_epstein.png** - Symbolbild für Epstein-Thema (Insel/Villa Silhouette)
 - [ ] **photo_mkultra.png** - Symbolbild MK Ultra (Labor/Akten-Ästhetik)
 - [ ] **photo_911.png** - Symbolbild 9/11 (NYC Skyline, subtil)
 - [ ] **photo_polaroid.png** - Leeres Polaroid als Platzhalter
