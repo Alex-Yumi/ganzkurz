@@ -16,7 +16,7 @@ Draufsicht auf einen investigativen Schreibtisch. Dokumente, Fotos, Notizen vers
 - [x] **doc_classified.png** - "CLASSIFIED" Stempel-Dokument (transparenter Hintergrund)
 - [x] **doc_redacted.png** - Geschwärztes Dokument mit sichtbaren Fragmenten
 - [x] **doc_memo.png** - Internes Memo, vergilbtes Papier
-- [ ] **doc_envelope.png** - Brauner Umschlag, leicht geöffnet
+- [x] **doc_envelope.png** - Brauner Umschlag, leicht geöffnet
 
 ### Fotos
 - [ ] **photo_epstein.png** - Symbolbild für Epstein-Thema (Insel/Villa Silhouette)
