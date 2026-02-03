@@ -1,5 +1,5 @@
 /* ============================================
-   GanzKurz — Clean Podcast Design v2
+   GanzKurz — Scrollable Topics Design
    ============================================ */
 
 * {
@@ -17,9 +17,9 @@
     --color-green: #00b140;
 }
 
-html, body {
-    height: 100%;
-    overflow-x: hidden;
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
 }
 
 body {
@@ -29,28 +29,12 @@ body {
 }
 
 /* ============================================
-   Green Background (full screen)
-   ============================================ */
-
-.green-bg {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(180deg, 
-        #005520 0%, 
-        var(--color-green) 30%, 
-        var(--color-green) 70%,
-        #008830 100%
-    );
-    z-index: 0;
-}
-
-/* ============================================
-   Fixed Microphone (Header)
+   Fixed Microphone
    ============================================ */
 
 .mic-fixed {
     position: fixed;
-    top: -5vh;
+    top: -3vh;
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
@@ -58,74 +42,118 @@ body {
 }
 
 .mic-fixed img {
-    height: 45vh;
+    height: 40vh;
     width: auto;
-    filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.6));
+    filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.7));
 }
 
 /* ============================================
-   Main Content
+   Topic Sections (Scrollable)
    ============================================ */
 
 .content {
     position: relative;
-    z-index: 10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
-/* ============================================
-   Logo Section
-   ============================================ */
-
-.logo-section {
-    flex: 1;
+.topic-section {
+    position: relative;
+    height: 100vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 35vh; /* Space for mic */
-    padding-bottom: 10vh;
+    overflow: hidden;
+    scroll-snap-align: start;
 }
 
-.logo-container {
+.topic-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+.topic-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* Green background for hero */
+.green-bg {
+    background: linear-gradient(180deg, 
+        #004d1a 0%, 
+        var(--color-green) 50%,
+        #008830 100%
+    ) !important;
+}
+
+.green-bg::after {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.topic-content {
+    position: relative;
+    z-index: 10;
     text-align: center;
-}
-
-.logo {
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 12vw, 8rem);
-    font-weight: 900;
-    color: var(--color-text);
-    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-    margin-bottom: 0.5rem;
-}
-
-.tagline {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.9);
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    padding: 2rem;
+    padding-top: 35vh; /* Space for mic */
 }
 
 /* ============================================
-   Table Container (bottom, separate layer)
+   Typography
+   ============================================ */
+
+.logo, .topic-section h2 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 12vw, 7rem);
+    font-weight: 900;
+    color: var(--color-text);
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+    margin-bottom: 0.5rem;
+}
+
+.tagline, .topic-subtitle {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+}
+
+.scroll-hint {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+}
+
+/* ============================================
+   Table Container (Fixed at bottom)
    ============================================ */
 
 .table-container {
-    position: relative;
-    width: 100%;
-    z-index: 20;
-    margin-top: auto;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    pointer-events: none;
 }
 
 .table-img {
     width: 100%;
     height: auto;
     display: block;
-    filter: drop-shadow(0 -10px 30px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(0 -10px 40px rgba(0, 0, 0, 0.5));
 }
 
 /* ============================================
@@ -134,20 +162,25 @@ body {
 
 @media (max-width: 768px) {
     .mic-fixed img {
-        height: 30vh;
+        height: 28vh;
     }
     
-    .logo-section {
+    .topic-content {
         padding-top: 25vh;
+    }
+    
+    .table-img {
+        /* Crop table on mobile to show less */
+        margin-bottom: -10vh;
     }
 }
 
 @media (max-height: 600px) {
     .mic-fixed img {
-        height: 25vh;
+        height: 22vh;
     }
     
-    .logo-section {
-        padding-top: 20vh;
+    .topic-content {
+        padding-top: 18vh;
     }
 }

@@ -10,9 +10,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Green Background (full page) -->
-    <div class="green-bg"></div>
-    
     <!-- Fixed Microphone (stays at top while scrolling) -->
     <div class="mic-fixed">
         <img src="mic-v2-transparent.png" alt="Podcast Microphone">
@@ -20,15 +17,53 @@
     
     <!-- Main Content Area -->
     <main class="content">
-        <!-- Logo in center -->
-        <section class="logo-section">
-            <div class="logo-container">
+        <!-- Hero Section with Logo -->
+        <section class="topic-section hero-section">
+            <div class="topic-bg green-bg"></div>
+            <div class="topic-content">
                 <h1 class="logo">GanzKurz</h1>
                 <p class="tagline">Die Wahrheit braucht Zeit</p>
+                <p class="scroll-hint">↓ Scroll für Themen</p>
             </div>
         </section>
         
-        <!-- Table at bottom (separate layer) -->
+        <!-- MK Ultra -->
+        <section class="topic-section">
+            <div class="topic-bg" style="background-image: url('screen-mkultra.png');"></div>
+            <div class="topic-content">
+                <h2>MK Ultra</h2>
+                <p class="topic-subtitle">Die Gedankenkontroll-Experimente der CIA</p>
+            </div>
+        </section>
+        
+        <!-- Epstein -->
+        <section class="topic-section">
+            <div class="topic-bg" style="background-image: url('screen-epstein.png');"></div>
+            <div class="topic-content">
+                <h2>Epstein</h2>
+                <p class="topic-subtitle">Das Netzwerk der Macht</p>
+            </div>
+        </section>
+        
+        <!-- 9/11 -->
+        <section class="topic-section">
+            <div class="topic-bg" style="background-image: url('screen-911.png');"></div>
+            <div class="topic-content">
+                <h2>9/11</h2>
+                <p class="topic-subtitle">Die Fragen die bleiben</p>
+            </div>
+        </section>
+        
+        <!-- CIA Files -->
+        <section class="topic-section">
+            <div class="topic-bg" style="background-image: url('screen-cia.png');"></div>
+            <div class="topic-content">
+                <h2>CIA Files</h2>
+                <p class="topic-subtitle">Declassified</p>
+            </div>
+        </section>
+        
+        <!-- Table at bottom (stays fixed at bottom of viewport) -->
         <div class="table-container">
             <img src="table-v2-transparent.png" alt="Podcast Table" class="table-img">
         </div>
