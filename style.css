@@ -1,5 +1,5 @@
 /* ============================================
-   GanzKurz — New Clean Design
+   GanzKurz — Clean Podcast Design v2
    ============================================ */
 
 * {
@@ -17,15 +17,31 @@
     --color-green: #00b140;
 }
 
-html {
-    scroll-behavior: smooth;
+html, body {
+    height: 100%;
+    overflow-x: hidden;
 }
 
 body {
     background: var(--color-bg);
     color: var(--color-text);
     font-family: var(--font-body);
-    min-height: 100vh;
+}
+
+/* ============================================
+   Green Background (full screen)
+   ============================================ */
+
+.green-bg {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, 
+        #005520 0%, 
+        var(--color-green) 30%, 
+        var(--color-green) 70%,
+        #008830 100%
+    );
+    z-index: 0;
 }
 
 /* ============================================
@@ -34,7 +50,7 @@ body {
 
 .mic-fixed {
     position: fixed;
-    top: 0;
+    top: -5vh;
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
@@ -42,9 +58,9 @@ body {
 }
 
 .mic-fixed img {
-    height: 35vh;
+    height: 45vh;
     width: auto;
-    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.6));
 }
 
 /* ============================================
@@ -52,29 +68,28 @@ body {
    ============================================ */
 
 .content {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
 /* ============================================
-   Green Stage (Background for topics)
+   Logo Section
    ============================================ */
 
-.green-stage {
+.logo-section {
     flex: 1;
-    background: linear-gradient(180deg, #006420 0%, var(--color-green) 50%, #008830 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 30vh; /* Space for mic */
-    min-height: 70vh;
-    position: relative;
+    padding-top: 35vh; /* Space for mic */
+    padding-bottom: 10vh;
 }
 
 .logo-container {
     text-align: center;
-    z-index: 10;
 }
 
 .logo {
@@ -82,33 +97,35 @@ body {
     font-size: clamp(3rem, 12vw, 8rem);
     font-weight: 900;
     color: var(--color-text);
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     margin-bottom: 0.5rem;
 }
 
 .tagline {
     font-size: clamp(1rem, 3vw, 1.5rem);
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.9);
     letter-spacing: 0.3em;
     text-transform: uppercase;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* ============================================
-   Table Container
+   Table Container (bottom, separate layer)
    ============================================ */
 
 .table-container {
     position: relative;
     width: 100%;
-    overflow: hidden;
-    margin-top: -5vh; /* Slight overlap with green */
+    z-index: 20;
+    margin-top: auto;
 }
 
 .table-img {
     width: 100%;
     height: auto;
     display: block;
+    filter: drop-shadow(0 -10px 30px rgba(0, 0, 0, 0.4));
 }
 
 /* ============================================
@@ -117,10 +134,20 @@ body {
 
 @media (max-width: 768px) {
     .mic-fixed img {
+        height: 30vh;
+    }
+    
+    .logo-section {
+        padding-top: 25vh;
+    }
+}
+
+@media (max-height: 600px) {
+    .mic-fixed img {
         height: 25vh;
     }
     
-    .green-stage {
+    .logo-section {
         padding-top: 20vh;
     }
 }
