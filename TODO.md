@@ -40,7 +40,7 @@ Draufsicht auf einen investigativen Schreibtisch. Dokumente, Fotos, Notizen vers
 
 ## Phase 2: HTML Struktur 🏗️
 
-- [ ] Hero Section umbauen
+- [x] Hero Section umbauen
   ```html
   <section class="hero-desk">
     <div class="desk-surface"></div>
@@ -62,7 +62,7 @@ Draufsicht auf einen investigativen Schreibtisch. Dokumente, Fotos, Notizen vers
   </section>
   ```
 
-- [ ] Jedes Element als positioniertes Item
+- [x] Jedes Element als positioniertes Item
   ```html
   <div class="desk-item" data-item="classified" style="--x: 15%; --y: 20%; --rotate: -5deg;">
     <img src="doc_classified.png" alt="">

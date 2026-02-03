@@ -13,15 +13,66 @@
     <!-- Noise overlay for texture -->
     <div class="noise"></div>
     
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <!-- Background layers for image carousel -->
-        <div class="hero-bg-container">
-            <div class="hero-bg hero-bg-current" data-index="0"></div>
-            <div class="hero-bg hero-bg-next" data-index="1"></div>
-            <div class="hero-bg-reveal"></div>
+    <!-- Hero Section - 3D Schreibtisch -->
+    <section class="hero-desk" id="hero">
+        <!-- Schreibtisch-Hintergrund -->
+        <div class="desk-surface"></div>
+        
+        <!-- Parallax Layer (von hinten nach vorne) -->
+        <div class="desk-layer" data-depth="0.1">
+            <!-- Große Dokumente hinten -->
+            <div class="desk-item" style="--x: 5%; --y: 10%; --rotate: -8deg;">
+                <img src="doc_classified.png" alt="">
+            </div>
+            <div class="desk-item" style="--x: 60%; --y: 5%; --rotate: 12deg;">
+                <img src="doc_redacted.png" alt="">
+            </div>
         </div>
-        <div class="hero-content">
+        
+        <div class="desk-layer" data-depth="0.2">
+            <!-- Fotos, Memo, Umschlag -->
+            <div class="desk-item" style="--x: 70%; --y: 55%; --rotate: -3deg;">
+                <img src="photo_epstein.png" alt="">
+            </div>
+            <div class="desk-item" style="--x: 10%; --y: 60%; --rotate: 5deg;">
+                <img src="photo_mkultra.png" alt="">
+            </div>
+            <div class="desk-item" style="--x: 45%; --y: 70%; --rotate: -2deg;">
+                <img src="photo_911.png" alt="">
+            </div>
+            <div class="desk-item" style="--x: 25%; --y: 35%; --rotate: 8deg;">
+                <img src="doc_memo.png" alt="">
+            </div>
+            <div class="desk-item" style="--x: 75%; --y: 25%; --rotate: -6deg;">
+                <img src="doc_envelope.png" alt="">
+            </div>
+        </div>
+        
+        <div class="desk-layer" data-depth="0.4">
+            <!-- Props vorne -->
+            <div class="desk-item" style="--x: 85%; --y: 75%; --rotate: 15deg;">
+                <img src="prop_pen.png" alt="">
+            </div>
+            <div class="desk-item" style="--x: 8%; --y: 80%; --rotate: -12deg;">
+                <img src="prop_glasses.png" alt="">
+            </div>
+            <div class="desk-item" style="--x: 50%; --y: 15%; --rotate: 3deg;">
+                <img src="prop_postit.png" alt="">
+            </div>
+            <div class="desk-item" style="--x: 35%; --y: 50%; --rotate: 45deg;">
+                <img src="prop_paperclip.png" alt="">
+            </div>
+        </div>
+        
+        <div class="desk-layer" data-depth="0.6">
+            <!-- Oberste Ebene -->
+            <div class="desk-item" style="--x: 80%; --y: 10%; --rotate: 0deg;">
+                <img src="prop_coffee.png" alt="">
+            </div>
+        </div>
+        
+        <!-- Content Overlay -->
+        <div class="hero-content-overlay">
             <div class="classified-stamp">COMING SOON</div>
             <h1 class="title">
                 <span class="title-main">Ganz<span class="highlight">Kurz</span></span>
@@ -29,21 +80,11 @@
             <p class="tagline">Die Wahrheit braucht Zeit.</p>
             <p class="subtitle">Ein Podcast über die Geschichten, die man uns nicht erzählt.</p>
             
-            <div class="redacted-preview">
-                <span class="redacted" data-reveal="Epstein Files">███████████</span>
-                <span class="redacted" data-reveal="MK Ultra">████████</span>
-                <span class="redacted" data-reveal="9/11">████</span>
-                <span class="redacted" data-reveal="False Flags">███████████</span>
-            </div>
-            
             <div class="cta-section">
                 <form class="notify-form" id="notifyForm">
                     <input type="email" placeholder="Deine E-Mail für Updates" required>
                     <button type="submit">
                         <span>Benachrichtigen</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
                     </button>
                 </form>
                 <p class="privacy-note">Kein Spam. Nur die Wahrheit.</p>
