@@ -25,7 +25,7 @@ Draufsicht auf einen investigativen Schreibtisch. Dokumente, Fotos, Notizen vers
 - [ ] **photo_polaroid.png** - Leeres Polaroid als Platzhalter
 
 ### Requisiten
-- [ ] **prop_coffee.png** - Kaffeetasse von oben (halb voll)
+- [x] **prop_coffee.png** - Kaffeetasse von oben (halb voll)
 - [ ] **prop_pen.png** - Kugelschreiber diagonal
 - [ ] **prop_glasses.png** - Lesebrille
 - [ ] **prop_postit.png** - Post-it mit "?" darauf
