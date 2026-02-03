@@ -8,48 +8,60 @@ const scrollHint = document.querySelector('.scroll-hint');
 
 // Scroll handler for Netflix zoom effect
 function handleScroll() {
-    const scrollY = window.scrollY;
+    const scrollY = window.scrollY || window.pageYOffset;
     const windowHeight = window.innerHeight;
     
     // Calculate progress (0 to 1) based on scroll
-    const progress = Math.min(scrollY / (windowHeight * 0.8), 1);
+    const progress = Math.min(scrollY / (windowHeight * 0.7), 1);
     
-    // Logo: Scale up (1 to 3) and fade out
-    const scale = 1 + (progress * 2);
-    const opacity = 1 - progress;
+    // Logo: Scale up (1 to 2.5) and fade out
+    const scale = 1 + (progress * 1.5);
+    const opacity = Math.max(0, 1 - (progress * 1.5));
     
-    logo.style.transform = `translate(-50%, -50%) scale(${scale})`;
-    logo.style.opacity = opacity;
-    
-    // Hide scroll hint as user scrolls
-    scrollHint.style.opacity = 1 - (progress * 2);
-    
-    // When logo is mostly faded, make it non-blocking
-    if (progress > 0.8) {
-        logo.style.pointerEvents = 'none';
-    } else {
-        logo.style.pointerEvents = 'auto';
+    if (logo) {
+        logo.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        logo.style.opacity = opacity;
+        
+        // Hide logo completely when faded
+        if (opacity <= 0) {
+            logo.style.visibility = 'hidden';
+        } else {
+            logo.style.visibility = 'visible';
+        }
     }
     
-    // Show content when scrolled enough
-    if (progress > 0.5) {
-        content.classList.add('visible');
-    } else {
-        content.classList.remove('visible');
+    // Hide scroll hint
+    if (scrollHint) {
+        scrollHint.style.opacity = Math.max(0, 1 - (progress * 3));
+    }
+    
+    // Show content when scrolled past 40%
+    if (content) {
+        if (progress > 0.4) {
+            content.classList.add('visible');
+        } else {
+            content.classList.remove('visible');
+        }
     }
 }
 
-// Throttle scroll for performance
-let ticking = false;
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        requestAnimationFrame(() => {
-            handleScroll();
-            ticking = false;
+// Use both scroll and touch events for mobile compatibility
+window.addEventListener('scroll', handleScroll, { passive: true });
+window.addEventListener('touchmove', handleScroll, { passive: true });
+
+// Also use IntersectionObserver as backup for content reveal
+if ('IntersectionObserver' in window && content) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
         });
-        ticking = true;
-    }
-});
+    }, { threshold: 0.1 });
+    
+    observer.observe(content);
+}
 
 // Initial state
+document.addEventListener('DOMContentLoaded', handleScroll);
 handleScroll();
