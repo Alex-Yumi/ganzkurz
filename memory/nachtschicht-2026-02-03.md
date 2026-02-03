@@ -18,8 +18,8 @@
 | 8 | photo_911.png | ✅ | 00:08 | 00:10 |
 | 9 | prop_coffee.png | ✅ | 00:10 | 00:11 |
 | 10 | prop_pen.png | ✅ | 00:11 | 00:12 |
-| 11 | prop_glasses.png | ⏳ | - | - |
-| 12 | prop_postit.png | ⏳ | - | - |
+| 11 | prop_glasses.png | ✅ | 00:13 | 00:13 |
+| 12 | prop_postit.png | ✅ | 00:14 | 00:14 |
 | 13 | HTML Struktur | ⏳ | - | - |
 | 14 | CSS Styling | ⏳ | - | - |
 | 15 | JavaScript Parallax | ⏳ | - | - |
@@ -90,5 +90,21 @@
 - Motiv: Klassischer Füllfederhalter dunkelblau/gold, diagonal liegend
 - Schöne Patina und weicher Schatten für 3D-Tiefe
 - Speicherort: /root/.openclaw/workspace/ganzkurz/prop_pen.png
+
+### 00:13 UTC - Task 11: prop_glasses.png ✅
+- Gemini 2.0 Flash Image Generation verwendet (gemini-2.0-flash-exp-image-generation)
+- Prompt: "Top-down view of classic vintage reading glasses lying open on a desk surface, elegant tortoiseshell horn-rimmed frame with warm brown tones, slightly reflective glass lenses with subtle light glare, photorealistic product photography, soft natural shadow underneath for 3D depth effect, clean neutral background, high detail, professional studio lighting"
+- Output: 680x1024 PNG (565 KB)
+- Motiv: Klassische Schildpatt-Hornbrille von oben, aufgeklappt liegend
+- Schöne spiegelnde Gläser und weicher Schatten für 3D-Tiefe
+- Speicherort: /root/.openclaw/workspace/ganzkurz/prop_glasses.png
+
+### 00:14 UTC - Task 12: prop_postit.png ✅
+- Imagen 4.0 via Gemini API (nano-banana-pro)
+- Prompt: "Top-down photograph of a classic yellow Post-it sticky note on a neutral gray desk surface. The Post-it has a single large handwritten question mark '?' in black marker. One corner of the Post-it is slightly lifted and curled up, casting a soft shadow underneath. Clean, minimal composition. Studio lighting, product photography style."
+- Output: 1K resolution PNG (quadratisch)
+- Motiv: Klassischer gelber Post-it mit "?" Fragezeichen in schwarzem Marker
+- Leicht angehobene Ecke mit Schatten für 3D-Tiefe
+- Speicherort: /root/.openclaw/workspace/ganzkurz/prop_postit.png
 
 ---
