@@ -1,0 +1,74 @@
+# Nordahl — History
+
+## 2026-02-19
+- Owlet erstellt
+- Kontext aus Tytos Memory übertragen
+- Kamerad049 Phase 1-8 dokumentiert (abgeschlossen, wartet auf Presseanfragen)
+- **NEUER AUFTRAG: Freedom.gov Recherche**
+  - freedom.gov direkt abgerufen — Landing Page "Freedom Is Coming"
+  - Reuters-Exklusivbericht analysiert (18.02.2026)
+  - Heise-Bericht (dt./engl.) ausgewertet
+  - Guardian-Bericht zu Internet Freedom-Kürzungen ausgewertet
+  - NOTUS-Investigation zu National Design Studio ausgewertet
+  - Hacker News Diskussionen (#47075047, #47072613) gelesen
+  - Edward Coristine / DOGE-Verbindung recherchiert (CNN, Nextgov)
+  - Detaillierten Bericht geschrieben → `/root/obsidian-vault/Recherche/FreedomGov/Bericht-Freedom-gov.md`
+  - CONTEXT.md aktualisiert mit Freedom.gov-Status
+  - Kernfund: Politische Waffe gegen EU, nicht Menschenrechtstool. DOGE-Personal baut es. Echte Anti-Zensur-Programme werden gleichzeitig zerstört.
+
+- **PHASE 2: Freedom.gov Deep Dive**
+  - **Joe Gebbia** vollständig recherchiert:
+    - Background: RISD, Airbnb-Gründung 2008, $8,3 Mrd., Tesla Board seit 2022
+    - Politisch: Dem→Rep, $1M an Greg Abbott, trat von Airbnb.org zurück
+    - NDS: Per Executive Order 21.08.2025, befristet 3 Jahre, ~26.000 Webportale
+    - Quellen: Wikipedia, NOTUS, Wired, Bloomberg, Reuters, Forbes, Dezeen
+    - → `Phase-2-Gebbia.md`
+  - **Edward Coristine ("Big Balls")** TIEFENRECHERCHE:
+    - Krebs, CNN, Wired, NextGov, Bloomberg, Wikipedia ausgewertet
+    - Kernfunde: The Com (~4 Jahre aktiv), Path Network (gefeuert wegen Datenleck), DiamondCDN (hostete Cybercrime-Gruppe EGodly), DDoS-for-Hire gesucht, russische Domains, KGB-Großvater, 300 Mio. SSNs auf unsicheren Server (Whistleblower), GS-15 mit High-School
+    - → `Phase-2-Coristine.md`
+  - **Heuchelei-Analyse** — Systematische Gegenüberstellung:
+    - Guardian, Tech Policy Press, Wikipedia, OTF, AP News ausgewertet
+    - Internet Freedom ($94M/J) gutted, OTF ($43,5M) gekündigt/Klage/Berufung
+    - Tor, Signal, Let's Encrypt Finanzierung gestrichen
+    - FOC-Austritt Jan 2026, 18F geschlossen
+    - vmfunc.re: OpenAI/Persona Watchlist-System als Kontext
+    - → `Phase-2-Heuchelei-Analyse.md`
+  - CONTEXT.md aktualisiert mit Phase-2-Ergebnissen
+  - Alle Dateien in Obsidian Vault geschrieben
+
+- **PHASE 3: Religiöser & Politischer Background**
+  - **Valery Martynov** (KGB-Großvater) vollständig recherchiert:
+    - KGB First Chief Directorate, Lt.Col., Washington ab 1980
+    - Rekrutiert 1982 als CIA-Doppelagent "Gentile"
+    - 50+ sowjetische Offiziere identifiziert
+    - Verraten durch Aldrich Ames 1985, hingerichtet 28.05.1987
+    - Familie (Natalia + 2 Kinder) emigrierte 1995 in die USA
+  - **Edward Coristine** — Familiärer Background vervollständigt:
+    - Vater Charles: Ex-Morgan Stanley, CEO LesserEvil, Hershey-Übernahme 2025
+    - Mutter Anna: KGB-Tochter, Finanzfachfrau
+    - Aufgewachsen in Larchmont (liberaler Vorort), Rye Country Day School
+    - Kein religiöser Background, reiner Musk-Jünger und Tech-Libertärer
+  - **Joe Gebbia** — Spenden & Netzwerk:
+    - $1M Abbott + $2M+ Cuomo PAC → pragmatischer Autoritarismus
+    - PayPal Mafia-Orbit via Tesla Board (Musk) und David Sacks (Airbnb-Investor)
+    - Keine religiöse Zugehörigkeit, Giving Pledge
+  - **Sarah Rogers** — HAUPTFUND:
+    - Dartmouth BA (2005), Columbia JD (2008), Latham & Watkins, Philip Morris
+    - NRA-Anwältin (NRA v. Vullo, 9-0 SCOTUS 2024)
+    - Vertrat Alt-Right-Influencer Douglass Mackey/"Ricky Vaughn"
+    - Internet-Libertäre: Gawker-Sockpuppets, anonyme Jura-Foren, 4chan-Mentalität
+    - Semafor-Interview analysiert — ideologische DNA freigelegt
+  - **Darren Beattie** (Vorgänger) recherchiert:
+    - White Nationalist, gefeuert 2018 wegen WN-Konferenz
+    - Russische Ehefrau Yulia Kirillova (Nichte von Putin-Vertrautem)
+    - Schloss Counter Foreign Information Manipulation Hub
+    - Forderte Sterilisierung von "low-IQ trash"
+  - **Übergeordnete Analyse:**
+    - Drei Säulen identifiziert: Tech-Libertarismus, Rechts-Libertäre Juristen, Nationalistische Rechte
+    - Freedom.gov = KEIN Christian-Nationalist-Projekt
+    - Achse Thiel-Musk-Sacks-Gebbia = eigentliches Machtzentrum
+    - Drei russische Verbindungen (Coristine, Beattie, Musk)
+    - Project 2025: indirekte Verbindungen via Personalrekrutierung und Dark Money
+  - → `Phase-3-Religioser-Politischer-Background.md`
+  - CONTEXT.md aktualisiert mit Phase-3-Ergebnissen
